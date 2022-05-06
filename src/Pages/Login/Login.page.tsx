@@ -19,7 +19,8 @@ const Login = () => {
                 <FormGroup>
                     <FormLabel text='email'></FormLabel>
                     <EmailSvg />
-                    <Input {...addNewState({state: 'email', name: 'email', type: 'email'})}/>
+                    <Input {...addNewState({state: 'email', name: 'email', type: 'email'})} />
+                    <div className="invalid"></div>
                 </FormGroup>
                 <FormGroup>
                     <FormLabel text='Password'></FormLabel>

@@ -3,14 +3,14 @@ import styled, { css } from "styled-components"
 
 const FormGroup = ({children}: {children: JSX.Element | JSX.Element[]}) => {
     const [focus, setFocus] = useState(false)
-    const [invalid, setInvalid] = useState(false)
+
 
     return(
-        <StyledFormGroup invalid={invalid}>
+        <StyledFormGroup >
             {
                 Children.map(children, (child:JSX.Element)=>{
                     if(typeof child.type == 'string') return child
-                    return cloneElement(child, {focus, setFocus, invalid, setInvalid})
+                    return cloneElement(child, {focus, setFocus })
                 })
             }
         </StyledFormGroup>
@@ -37,13 +37,6 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
         border: 1px solid transparent;
     }
 
-    ${({invalid}) => {
-        if(invalid){
-            return css`
-            border: 1px solid var(--dan-300);
-            `
-        }
-    }}
 
     /* giving margin on email form field */
     &:nth-of-type(1){

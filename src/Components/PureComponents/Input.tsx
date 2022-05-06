@@ -2,13 +2,12 @@ import { ChangeEvent, Dispatch, memo, SetStateAction, useCallback } from "react"
 import styled from "styled-components"
 
 
-const Input = ({type = 'text', value, onChange, setFocus, name, id, setInvalid }: {
+const Input = ({type = 'text', value, onChange, setFocus, name, id }: {
     type?:'password' | 'text' | 'email', value?: string,
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     setFocus?: Dispatch<SetStateAction<boolean>>,
     name?: string,
     id?: string,
-    setInvalid?: Dispatch<SetStateAction<boolean>>
 }) => {
 
     const handleFocus = useCallback(()=>{
@@ -25,15 +24,20 @@ const Input = ({type = 'text', value, onChange, setFocus, name, id, setInvalid }
 }
 export default memo(Input)
 
+
+
 const StyledInput = styled.input`
     font-size: clamp(1.6rem, 1.6rem, 1.6vw);
     &:focus{
         background-color: var(--input-focus-bg);
     }
-    &:invalid + div.invalid{
+
+    /* &:invalid + div.invalid{
         border-color: var(--dan-200);
     }
+
+
     &:valid + div.invalid{
         border-color: var(--success-300);
-    }
+    } */
 `

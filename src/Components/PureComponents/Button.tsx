@@ -9,6 +9,8 @@ const Button = ({children, cn, onClick, mode, isDisabled}: PropType) => {
 }
 export default Button
 
+
+
 const StyledButton = styled.button<{mode?: BtnMode}>`
     font-size: clamp(1.6rem, 1.6rem, 1.6vw);
     text-decoration: none;
@@ -16,7 +18,7 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
     padding: clamp(0.3rem, 0.4rem, 0.4vw) clamp(0.7rem, 0.9rem, 0.9vw);
 
     :disabled{
-        background-color: gray;
+        background-color: #424242;
         cursor: not-allowed;
     }
 
