@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/notePage.cc4b9dfc.chunk.js","mappings":"yIAEMA,EAAO,WACT,OACI,mCAGR,WAAeC,EAAAA,EAAAA,MAAKD","sources":["Pages/Note/Note.page.tsx"],"sourcesContent":["import { memo } from \"react\"\r\n\r\nconst Note = () => {\r\n    return(\r\n        <div>note</div>\r\n    )\r\n}\r\nexport default memo(Note)"],"names":["Note","memo"],"sourceRoot":""}

@@ -1,0 +1,66 @@
+:root {
+
+    //font colors
+    --clr: hsl(0, 0%, 10%);
+    --brand: hsl(259, 86%, 33%);
+    --h3-clr: hsl(0, 0%, 20%);
+    --input-clr: hsl(0, 0%, 30%);
+    --link-clr: hsl(0, 0%, 10%);
+
+
+
+    //background colors
+    --body-bg: hsl(0, 0%, 95%);
+    --form-bg: hsl(0, 0%, 100%);
+    --form-shadow: 0 0.3rem 2rem rgba(0,0,0,0.1);
+    --btn-shadow: 0 0.3rem 1rem rgba(0,0,0,0.3);
+    // --input-bg: rgba(59, 12, 158, 15%);
+    --input-bg: rgba(59, 12, 158, 0.08);
+    --form-group-bg: rgba(59, 12, 158, 0.08);
+    --input-focus-bg: rgba(59, 12, 158, 15%);
+
+
+
+    //brand colors
+    --brand-clr-100: hsl(259, 86%, 90%);
+    --brand-clr-200: hsl(259, 86%, 80%);
+    --brand-clr-300: hsl(259, 86%, 70%);
+    --brand-clr-400: hsl(259, 86%, 60%);
+
+    // dangeor colors
+    --dan-100: hsl(0, 100%, 90%);
+    --dan-200: hsl(0, 100%, 80%);
+    --dan-300: hsl(0, 100%, 70%);
+    --dan-400: hsl(0, 100%, 60%);
+    //borders
+    --brand-border-100: hsl(259, 86%, 90%);
+    --brand-border-200: hsl(259, 86%, 80%);
+    --brand-border-300: hsl(259, 86%, 70%);
+    --brand-border-400: hsl(259, 86%, 60%);
+
+
+
+    //var
+    --header-height: 6rem;
+}
+
+.dark{
+    //font colors
+    --clr: hsl(0, 0%, 95%);
+    --brand:hsl(258, 84%, 60%);
+    --h3-clr: hsl(0, 0%, 80%);
+    --input-clr: hsl(0, 0%, 80%);
+    --link-clr: hsl(0, 0%, 90%);
+
+
+
+    //background colors
+    --body-bg: hsl(0, 0%, 14%);
+    --form-bg: #0D0D0D;
+    // --form-bg: #111111;
+    --form-shadow: 0 0.3rem 2rem rgba(46, 46, 46, 0.1);
+    --btn-shadow: 0 0.3rem 1rem rgba(46, 46, 46, 0.3);
+    --input-bg: rgba(91, 23, 234, 8%);
+    --input-focus-bg: rgba(91, 23, 234, 8%);
+    --form-group-bg: rgba(91, 23, 234, 8%);
+}

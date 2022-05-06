@@ -1,0 +1,86 @@
+@import "./theme";
+
+*{
+    // font-family: System-Ui;
+    box-sizing: border-box;
+    color: var(--clr);
+    letter-spacing: 0.05rem;
+    line-height: 1.5;
+}
+body{
+    margin: 0;
+    background-color: var(--body-bg);
+    height: 100%;
+    transition: background-color 0.3s;
+    max-width: 150rem;
+    margin-inline: auto;
+}
+#root{
+    height: 100%;
+}
+html{
+    font-size: 62.5%;
+    height: 100%;
+}
+main{
+    height: calc(100% - var(--header-height));
+    width: 100%;
+    padding-inline: clamp(1.5rem, 3rem, 3vw);
+}
+
+.brand{
+    color:var(--brand);
+}
+.p{
+    padding: 2rem;
+}
+.py{
+    padding-block: clamp(1.5rem, 3rem, 3vw);
+}
+.px{
+    padding-inline: clamp(1.5rem, 3rem, 3vw);
+}
+li{
+    font-size: clamp(1.6rem, 1.6rem, 1.6vw);
+
+}
+
+a{
+    font-size: clamp(1.6rem, 1.6rem, 1.6vw);
+    color: var(--link-clr);
+    padding: clamp(0.3rem, 0.4rem, 0.4vw) clamp(0.7rem, 0.9rem, 0.9vw);
+    border-radius: 0.5rem;
+    transition: background 0.3s;
+
+
+
+    &:hover{
+        color: white;
+        background-color: var(--brand);
+    }
+}
+
+.red{
+    color:var(--dan-300) !important;
+    border-color: var(--dan-200) !important;
+
+    &:hover{
+        color: white !important;
+        background-color: var(--dan-300) !important;
+    }
+}
+
+.u{
+    text-decoration: underline;
+}
+
+
+input{
+    background-color: var(--input-bg);
+    border: none;
+    border-radius: 0.5rem;
+}
+
+li, input, label{
+    color: var(--input-clr);
+}
