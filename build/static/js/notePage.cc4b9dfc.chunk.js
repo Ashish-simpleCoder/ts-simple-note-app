@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksimple_note=self.webpackChunksimple_note||[]).push([[33],{72:function(e,n,t){t.r(n);var s=t(791),u=t(184),i=function(){return(0,u.jsx)("div",{children:"note"})};n.default=(0,s.memo)(i)}}]);
-//# sourceMappingURL=notePage.cc4b9dfc.chunk.js.map

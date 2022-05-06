@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, memo, SetStateAction, useCallback } from "react"
 import styled from "styled-components"
 
 
-const Input = ({type = 'text', value, onChange, setFocus, name, id, placeholder }: {
+const Textarea = ({type = 'text', value, onChange, setFocus, name, id, placeholder }: {
     type?: 'password' | 'text' | 'email', value?: string,
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     setFocus?: Dispatch<SetStateAction<boolean>>,
@@ -20,22 +20,23 @@ const Input = ({type = 'text', value, onChange, setFocus, name, id, placeholder 
     } , [setFocus])
 
     return(
-        <StyledInput type={type} value={value} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur} name={name} id={id} placeholder={placeholder}/>
+        <StyledTextArea value={value} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur} name={name} id={id} placeholder={placeholder}/>
     )
 }
-export default memo(Input)
+export default memo(Textarea)
 
 
 
-const StyledInput = styled.input`
+const StyledTextArea = styled.textarea`
     font-size: clamp(1.6rem, 1.6rem, 1.6vw);
-    height: clamp(3.5rem, 4rem, 4vw);
     padding-inline: 1rem;
+    background: var(--input-bg);
+    border: none;
+    border-radius: 0.5rem;
 
     &:focus{
         background-color: var(--input-focus-bg);
     }
-
 
     /* &:invalid + div.invalid{
         border-color: var(--dan-200);

@@ -1,9 +1,9 @@
-import { Children, cloneElement, memo, ReactNode, useState } from "react"
-import styled, { css } from "styled-components"
+import { Children, cloneElement, memo, useState } from "react"
+import styled  from "styled-components"
+
 
 const FormGroup = ({children}: {children: JSX.Element | JSX.Element[]}) => {
     const [focus, setFocus] = useState(false)
-
 
     return(
         <StyledFormGroup >
@@ -52,10 +52,7 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
 
     label{
         position:absolute;
-        /* top:50%; */
-        /* left:0; */
         transform: translateX(5rem);
-        /* transform:translate(6rem, -50%); */
         pointer-events:none;
         transition:transform 0.3s;
     }
@@ -65,8 +62,6 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
 
 
     >input{
-        /* width:100%; */
-        /* padding:1rem 5rem 1rem 6rem; */
         padding-inline-end: 1rem;
         flex: 1;
         height: 100%;
@@ -74,10 +69,4 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
         background-color: transparent !important;
     }
 
-    svg{
-        /* position: absolute; */
-        /* transform:translateY(0%) translateX(100%); */
-        /* top: 2rem; */
-
-    }
 `

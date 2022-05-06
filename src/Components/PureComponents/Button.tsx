@@ -20,6 +20,9 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
     :disabled{
         background-color: #424242;
         cursor: not-allowed;
+        border: none;
+        /* color: ; */
+        color: #979797;
     }
 
     border-radius: 0.5rem;

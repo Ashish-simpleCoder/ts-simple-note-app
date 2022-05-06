@@ -1,12 +1,15 @@
-import { ChangeEvent, useCallback, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import Form from '../../Components/PureComponents/Form'
 import FormGroup from "../../Components/Journal Components/FormGroup/Form.group"
 import FormLabel from "../../Components/Journal Components/FormGroup/Form.label"
 
 const useForm = () =>{
-    const [states, setStates] = useState({} as any)
+    const [states, setStates] = useState<Record<any, any>>({})
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const [disabled, setDisabled] = useState(false)
+
+
 
     const handleSubmit = useCallback((fn: Function) => {
         setLoading(true)
@@ -36,6 +39,6 @@ const useForm = () =>{
         }
     }, [states])
 
-    return { addNewState, setStates, states, Form, FormGroup, FormLabel, error, loading, handleSubmit }
+    return { addNewState, setStates, states, Form, FormGroup, FormLabel, error, loading, handleSubmit, disabled, setDisabled }
 }
 export default useForm

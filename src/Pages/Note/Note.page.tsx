@@ -1,8 +1,11 @@
 import { memo } from "react"
+import NoteInput from "./Note.input"
 
 const Note = () => {
     return(
-        <div>note</div>
+        <>
+            <NoteInput />
+        </>
     )
 }
 export default memo(Note)
