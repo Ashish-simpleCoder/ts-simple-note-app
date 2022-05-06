@@ -20,7 +20,7 @@ const Input = ({type = 'text', value, onChange, setFocus, name, id, setInvalid }
     } , [setFocus])
 
     return(
-        <StyledInput  onInvalid={() => setInvalid && setInvalid(v => !v)} type={type} value={value} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur} name={name} id={id}/>
+        <StyledInput type={type} value={value} onChange={onChange} onFocus={handleFocus} onBlur={handleBlur} name={name} id={id}/>
     )
 }
 export default memo(Input)
@@ -30,6 +30,10 @@ const StyledInput = styled.input`
     &:focus{
         background-color: var(--input-focus-bg);
     }
-    &:invalid{
+    &:invalid + div.invalid{
+        border-color: var(--dan-200);
+    }
+    &:valid + div.invalid{
+        border-color: var(--success-300);
     }
 `

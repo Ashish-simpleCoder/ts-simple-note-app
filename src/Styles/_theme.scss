@@ -32,6 +32,12 @@
     --dan-200: hsl(0, 100%, 80%);
     --dan-300: hsl(0, 100%, 70%);
     --dan-400: hsl(0, 100%, 60%);
+
+    // success colors
+    --success-100: hsl(98, 100%, 90%);
+    --success-200: hsl(108, 100%, 80%);
+    --success-300: hsl(98, 100%, 70%);
+    --success-400: hsl(98, 100%, 60%);
     //borders
     --brand-border-100: hsl(259, 86%, 90%);
     --brand-border-200: hsl(259, 86%, 80%);
@@ -63,4 +69,17 @@
     --input-bg: rgba(91, 23, 234, 8%);
     --input-focus-bg: rgba(91, 23, 234, 8%);
     --form-group-bg: rgba(91, 23, 234, 8%);
+
+
+     // dangeor colors
+     --dan-100: hsl(0, 100%, 10%);
+     --dan-200: hsl(0, 100%, 20%);
+     --dan-300: hsl(0, 100%, 30%);
+     --dan-400: hsl(0, 100%, 40%);
+
+     // success colors
+     --success-100: hsl(98, 100%, 10%);
+     --success-200: hsl(108, 100%, 20%);
+     --success-300: hsl(98, 100%, 30%);
+     --success-400: hsl(98, 100%, 40%);
 }

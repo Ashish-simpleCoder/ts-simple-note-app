@@ -3,7 +3,7 @@ import styled, { css } from "styled-components"
 
 const FormGroup = ({children}: {children: JSX.Element | JSX.Element[]}) => {
     const [focus, setFocus] = useState(false)
-    const [invalid, setInvalid] = useState(true)
+    const [invalid, setInvalid] = useState(false)
 
     return(
         <StyledFormGroup invalid={invalid}>
@@ -27,6 +27,15 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
     margin-top:6rem;
     background-color: var(--form-group-bg);
     border-radius: 0.5rem;
+
+    div.invalid{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: 0.5rem;
+        border: 1px solid transparent;
+    }
 
     ${({invalid}) => {
         if(invalid){
