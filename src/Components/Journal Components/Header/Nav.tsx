@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react"
+import { memo } from "react"
 import styled from 'styled-components'
 import useStore from "../../../Redux/hooks/useStore"
 import { TOGGLE_THEME } from "../../../Redux/slices/theme.slice"
@@ -23,7 +23,7 @@ const Nav = () => {
                 <AnchorLink path="/note">Note</AnchorLink>
                 <Button cn='red'>Logout</Button>
             </If>
-            <Button cn='svg theme-toggle-btn' onClick={() => dispatch({type: TOGGLE_THEME})}><ToggleThemeIcon/></Button>
+            <Button cn='svg theme-toggle-btn' onClick={() => dispatch(TOGGLE_THEME())}><ToggleThemeIcon/></Button>
         </StyledNav>
     )
 }
