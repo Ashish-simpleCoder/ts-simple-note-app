@@ -1,47 +1,36 @@
 {
-  "name": "simple-note",
-  "version": "0.1.0",
-  "private": true,
-  "side-effects": false,
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "redux": "^4.2.0",
-    "styled-components": "^5.3.3"
-  },
+  "name": "mern-simple-note",
+  "version": "1.0.0",
+  "description": "A simple note app",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "nodemon typescript/index.ts",
+    "build": "tsc -p .",
+    "start": "node src/index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false",
+    "push": "git push heroku main"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [],
+  "author": "ashish-simplecoder",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.8",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.32",
-    "@types/react": "^17.0.44",
-    "@types/react-dom": "^17.0.16",
-    "@types/styled-components": "^5.1.25",
-    "typescript": "^4.6.4"
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/dotenv": "^8.2.0",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^17.0.13",
+    "@types/validator": "^13.7.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
   }
 }
