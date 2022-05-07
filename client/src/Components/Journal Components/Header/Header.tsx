@@ -59,8 +59,12 @@ export default memo(Header)
 const StyledHeader = styled.header`
     display: flex;
     align-items: center;
-    position: sticky;
-    top: 0;
+
+    @media (min-width:700px){
+        position:sticky;
+        top:0;
+        z-index:1;
+    }
 
     div.in.visible{
         --opacity: 1;

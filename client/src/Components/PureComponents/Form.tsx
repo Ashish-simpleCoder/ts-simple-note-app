@@ -3,16 +3,15 @@ import styled, { css, CSSProperties } from 'styled-components'
 
 
 
-const Form = memo(({children, mode, handleSubmit, styles, animate}:{
-    children:ReactNode, no_bg?:boolean, mode?: FormMode, handleSubmit?: ((e: FormEvent<HTMLFormElement>) => Promise<void>) | undefined
+const Form = memo(({children, mode, onSubmit, styles, animate}:{
+    children:ReactNode, no_bg?:boolean, mode?: FormMode, onSubmit?: ((e: FormEvent<HTMLFormElement>) => Promise<void>) | undefined
     styles?:CSSProperties,
     animate?: true | false,
 })=>{
 
     return(
         <StyledForm onSubmit={(e)=>{
-                e.preventDefault()
-                handleSubmit && handleSubmit(e)
+                onSubmit && onSubmit(e)
             }}
             style={styles}
             mode={mode}   //for margin-top
@@ -43,7 +42,6 @@ const StyledForm = styled.form<{no_bg?: true | false, mode?: FormMode, animate?:
     ${({mode})=>{
         if(mode === 'login' || mode === 'register'){
             return css`
-
                 border-radius:0.5rem;
                 padding-inline:2rem;
                 /* padding-block-end:2rem; */

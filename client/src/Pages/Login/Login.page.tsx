@@ -1,4 +1,4 @@
-import {memo } from 'react'
+import {memo, useMemo, FormEvent } from 'react'
 import Button from '../../Components/PureComponents/Button'
 import H3 from '../../Components/PureComponents/H3'
 import Input from '../../Components/PureComponents/Input'
@@ -8,12 +8,20 @@ import useForm from '../../Utility/Hooks/useForm'
 import useLoginValidations from '../../Utility/Hooks/useLoginValidations'
 
 const Login = () => {
-    const { addNewState, states, Form, FormGroup, FormLabel } = useForm()
+    const { addNewState, states, Form, FormGroup, FormLabel, handleSubmit } = useForm()
     const {isDisabled} = useLoginValidations({states})
+
+    const form_styles = useMemo(() => ({boxShadow:'var(--form-shadow)',transform:'translateY(3rem)'}), [])
+
+
+    const login_url = new Request('http://localhost:5000/api/user/login')
+    const handleLogin = (e: FormEvent<HTMLFormElement>) => handleSubmit(e,login_url)
+
+
 
 
     return(
-            <Form mode='login' styles={{boxShadow:'var(--form-shadow)',transform:'translateY(3rem)'}}>
+            <Form mode='login' styles={form_styles} onSubmit={handleLogin}>
                 <H3>Login</H3>
                 <FormGroup>
                     <FormLabel text='email'></FormLabel>
@@ -26,7 +34,7 @@ const Login = () => {
                     <PasswordSvg />
                     <Input {...addNewState({state: 'password', name: 'password', type: 'password'})}/>
                 </FormGroup>
-                <Button mode='login_form_btn' isDisabled={isDisabled}>Login</Button>
+                <Button mode='login_form_btn' isDisabled={isDisabled} >Login</Button>
             </Form>
     )
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react"
 import Form from '../../Components/PureComponents/Form'
 import FormGroup from "../../Components/Journal Components/FormGroup/Form.group"
 import FormLabel from "../../Components/Journal Components/FormGroup/Form.label"
@@ -11,12 +11,23 @@ const useForm = () =>{
 
 
 
-    const handleSubmit = useCallback((fn: Function) => {
-        setLoading(true)
+    const handleSubmit = useCallback( async(e: FormEvent<HTMLFormElement>, url: RequestInfo) => {
+        e.preventDefault()
         try{
-            fn()
+            setLoading(true)
+            const res = await fetch(url,{
+                body: JSON.stringify(states),
+                method:'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await res.json()
+            console.log(data)
         }catch(err){
-            setError(String(err))
+            console.log(err)
+            // setError(String(err))
         }finally{
             setLoading(false)
         }

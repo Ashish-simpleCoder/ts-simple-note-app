@@ -20,7 +20,7 @@ const StyledHamburger = styled.div`
    justify-content:space-between;
    flex-direction:column;
    cursor:pointer;
-   z-index:5;
+   z-index:101;
    margin-inline-start: auto;
 
 

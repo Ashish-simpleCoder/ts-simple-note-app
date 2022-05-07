@@ -53,7 +53,7 @@ const StyledMiniNav = styled.div`
     top: 0;
     right: 0;
     width: var(--width);
-    z-index: 5;
+    z-index: 1000;
     height: 100%;
 
     --opacity: 0;

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import asyncWrapper from "../asyncWrapper/asyncWrapper";
 
+
 const authUser = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const cookie_name = process.env.COOKIE_NAME || 'cookie_name'
     const secret = process.env.SECRET || 'yoursecretkey'

@@ -1,26 +1,26 @@
-import { NextFunction, Request, Response } from "express";
-import asyncWrapper from "../asyncWrapper/asyncWrapper";
-import { returnLoggedUser } from "../middlewares/authUser";
-import USER_MODEL, { UserType } from "../schemas/user.schema";
+import { NextFunction, Request, Response } from "express"
+import asyncWrapper from "../asyncWrapper/asyncWrapper"
+import { returnLoggedUser } from "../middlewares/authUser"
+import USER_MODEL, { UserType } from "../schemas/user.schema"
 
-export const createNotes = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
-    const logged_user:any = returnLoggedUser(req, res, next)
-    const user:UserType = await USER_MODEL.findById(logged_user._id)
-    if(!user) return next({status:400,error:'unauthorised user'})
+// export const createNotes = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
+//     const logged_user:any = returnLoggedUser(req, res, next)
+//     const user:UserType = await USER_MODEL.findById(logged_user._id)
+//     if(!user) return next({status:400,error:'unauthorised user'})
 
-    const notes:{title:string,content:string}[] = req.body.notes
-    notes.forEach(note=> user.notes.push(note) )
-    user.save()
-    res.status(201).send({success:true})
-})
+//     const notes:{title:string,content:string}[] = req.body.notes
+//     notes.forEach(note=> user.notes.push(note) )
+//     user.save()
+//     res.status(201).send({success:true})
+// })
 export const createOneNote = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const logged_user:any = returnLoggedUser(req, res, next)
     const user:UserType = await USER_MODEL.findById(logged_user._id)
     if(!user) return next({status:400,error:'unauthorised user'})
     if(!req.body.title && !req.body.content) return next({error:'notes can not be blanked', mode:'note'})
-    user.notes.push(req.body)
+    const new_note = user.notes.push(req.body)
     user.save()
-    res.status(201).send({success:true})
+    res.status(201).send({success:true, note: new_note})
 })
 
 
@@ -74,6 +74,8 @@ export const deleteOneNote = asyncWrapper(async(req:Request, res:Response, next:
     if(matchedCount) return res.send({success:true})
     if(!matchedCount) return next({status:404, error:'no note found with this id'})
 })
+
+
 export const deleteNotes = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const payload:any = returnLoggedUser(req,res,next)
     const user:UserType = await USER_MODEL.findById(payload._id)
@@ -135,7 +137,7 @@ export const updateNotes = asyncWrapper(async(req:Request, res:Response, next:Ne
 // if user wants to update one or many notes at once
 export const updateOneNote = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const payload:any = returnLoggedUser(req,res,next)
-    const user:UserType = await USER_MODEL.findById(payload._id)
+    const user: UserType = await USER_MODEL.findById(payload._id)
     if(!user) return next({status:400,error:'unauthorised user'})
 
     const _id = req.params.note_id

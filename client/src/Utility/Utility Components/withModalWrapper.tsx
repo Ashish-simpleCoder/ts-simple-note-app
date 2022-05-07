@@ -19,7 +19,6 @@ const StyledwithModalWrapper = styled.div`
     inset: 0;
     height: 100%;
     background-color: rgba(0,0,0,0.3);
-    z-index: 4;
+    z-index: 100;
     transition: background 0.5s;
-    /* pointer-events: all; */
 `
