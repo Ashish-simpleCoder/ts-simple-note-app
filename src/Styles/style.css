@@ -11,6 +11,7 @@
   --input-bg: rgba(59, 12, 158, 0.08);
   --form-group-bg: rgba(59, 12, 158, 0.08);
   --input-focus-bg: rgba(59, 12, 158, 15%);
+  --outline: rgba(59, 12, 158, 1);
   --brand-clr-100: hsl(259, 86%, 90%);
   --brand-clr-200: hsl(259, 86%, 80%);
   --brand-clr-300: hsl(259, 86%, 70%);
@@ -43,6 +44,7 @@
   --input-bg: rgba(91, 23, 234, 8%);
   --input-focus-bg: rgba(91, 23, 234, 8%);
   --form-group-bg: rgba(91, 23, 234, 8%);
+  --outline: rgb(96, 62, 168);
   --dan-100: hsl(0, 100%, 10%);
   --dan-200: hsl(0, 100%, 20%);
   --dan-300: hsl(0, 100%, 30%);
@@ -63,6 +65,10 @@
   color: var(--clr);
   letter-spacing: 0.08rem;
   line-height: 1.5;
+}
+
+*:focus {
+  outline: 1px solid var(--outline);
 }
 
 body {

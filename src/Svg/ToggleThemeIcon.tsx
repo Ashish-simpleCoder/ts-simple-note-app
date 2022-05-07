@@ -1,9 +1,9 @@
 import { useMemo } from "react"
-import { useSelector } from "react-redux"
+import useTheme from "../Redux/hooks/useTheme"
 
 export default function ToggleThemeIcon(){
-    const theme = useSelector((state: {theme:{value:true | false}}) => state.theme.value)
-    const fill_color = useMemo(() => theme ? 'hsl(258, 84%, 65%)' : '#3B0C9E', [theme])
+    const {theme} = useTheme()
+    const fill_color = useMemo(() => theme ? '#8D63F1' : '#3B0C9E', [theme])
     return(
         <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 11.6667C17.7899 11.6667 15.6702 12.5446 14.1074 14.1074C12.5446 15.6702 11.6667 17.7899 11.6667 20C11.6667 22.2101 12.5446 24.3297 14.1074 25.8925C15.6702 27.4553 17.7899 28.3333 20 28.3333C22.2101 28.3333 24.3298 27.4553 25.8926 25.8925C27.4554 24.3297 28.3333 22.2101 28.3333 20C28.3333 17.7899 27.4554 15.6702 25.8926 14.1074C24.3298 12.5446 22.2101 11.6667 20 11.6667Z" fill={fill_color}/>

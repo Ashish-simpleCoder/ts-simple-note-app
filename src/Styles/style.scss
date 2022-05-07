@@ -6,6 +6,9 @@
     color: var(--clr);
     letter-spacing: 0.08rem;
     line-height: 1.5;
+    &:focus{
+        outline: 1px solid var(--outline);
+    }
 }
 body{
     margin: 0;

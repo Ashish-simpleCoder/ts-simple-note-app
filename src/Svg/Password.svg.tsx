@@ -1,9 +1,9 @@
 import { memo, useMemo } from "react"
-import { useSelector } from "react-redux"
+import useTheme from "../Redux/hooks/useTheme"
 
 const Password = () => {
-    const dark_theme = useSelector((state: {theme: {value: true | false}}) => state.theme.value)
-    const fill_color = useMemo(() => dark_theme ? '#8D63F1' : '#3B0C9E', [dark_theme])
+    const {theme} = useTheme()
+    const fill_color = useMemo(() => theme ? '#8D63F1' : '#3B0C9E', [theme])
 
     return(
         <div className='svg-container'>

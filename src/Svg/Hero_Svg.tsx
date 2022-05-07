@@ -1,8 +1,8 @@
 import { useMemo } from "react"
-import { useSelector } from "react-redux"
+import useTheme from "../Redux/hooks/useTheme"
 
 export default function HeroSvg() {
-    const theme = useSelector((state: {theme:{value:true | false}}) => state.theme.value)
+    const {theme} = useTheme()
     const book_clr = useMemo(() => theme ? '#4D4C4C' : '#E5E5E5', [theme])
     const line_clr = useMemo(() => theme ? '#8E8E8E' : '#FFFFFF', [theme])
 
