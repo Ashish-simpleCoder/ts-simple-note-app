@@ -14,8 +14,9 @@ export default Button
 const StyledButton = styled.button<{mode?: BtnMode}>`
     font-size: clamp(1.6rem, 1.6rem, 1.6vw);
     text-decoration: none;
-    color: var(--brand-clr-400);
+    /* color: var(--brand-clr-400); */
     padding: clamp(0.3rem, 0.4rem, 0.4vw) clamp(0.7rem, 0.9rem, 0.9vw);
+    height: clamp(3.5rem, 4rem, 4vw);
 
     :disabled{
         background-color: #424242;
@@ -25,10 +26,10 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
         color: #979797;
     }
 
-    border-radius: 0.5rem;
-    border:0.5px solid var(--brand-border-400);
+    /* border-radius: 0.5rem; */
+    /* border:0.5px solid var(--brand-border-400); */
     transition: background 0.3s;
-    background-color: var(--body-bg);
+    background-color: var(--body-bg);   // for theme-toggling button
     cursor: pointer;
     border: none;
 
@@ -72,9 +73,9 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
             `
 
             case 'create_note_btn': return css`
-                background:var(--green);
-                color:hsl(0, 0%, 90%);
-                box-shadow:0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
+                background:var(--success-400);
+                /* color:hsl(0, 0%, 90%); */
+                /* box-shadow:0 0.2rem 0.2rem rgba(0, 0, 0, 0.3); */
             `
             case 'logout_btn': return css`
                 height:unset;

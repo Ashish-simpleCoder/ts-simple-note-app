@@ -18,7 +18,7 @@ const StyledUl = styled.ul`
     flex-direction: column;
     /* padding: 0; */
 
-    @media (min-width: 800px){
+    @media (min-width: 700px){
         gap: 4rem;
 
     }

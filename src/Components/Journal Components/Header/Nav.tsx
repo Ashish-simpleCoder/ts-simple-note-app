@@ -38,7 +38,7 @@ const StyledNav = styled.nav`
     @media (min-width: 800px){
         max-width: var(--nav-width);
         --nav-width: 20%;
-        margin-left: auto;
+        /* margin-left: auto; */
     }
 
     .svg{

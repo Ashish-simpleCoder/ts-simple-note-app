@@ -1,12 +1,12 @@
 import { Children, cloneElement, memo, useState } from "react"
-import styled  from "styled-components"
+import styled, { CSSProperties }  from "styled-components"
 
 
-const FormGroup = ({children}: {children: JSX.Element | JSX.Element[]}) => {
+const FormGroup = ({children, styles}: {children: JSX.Element | JSX.Element[], styles?: CSSProperties}) => {
     const [focus, setFocus] = useState(false)
 
     return(
-        <StyledFormGroup >
+        <StyledFormGroup style={styles}>
             {
                 Children.map(children, (child:JSX.Element)=>{
                     if(typeof child.type == 'string') return child
@@ -18,7 +18,7 @@ const FormGroup = ({children}: {children: JSX.Element | JSX.Element[]}) => {
 }
 export default memo(FormGroup)
 
-const StyledFormGroup = styled.div<{invalid?: boolean}>`
+const StyledFormGroup = styled.div`
     display:flex;
     align-items:center;
     width:100%;
@@ -28,7 +28,7 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
     background-color: var(--form-group-bg);
     border-radius: 0.5rem;
 
-    div.invalid{
+    div.utility.invalid, div.utility.focus-border{
         position: absolute;
         width: 100%;
         height: 100%;
@@ -44,7 +44,7 @@ const StyledFormGroup = styled.div<{invalid?: boolean}>`
     }
     div.svg-container{
         height: 100%;
-        width: 5rem;
+        width: 4rem;
         display: flex;
         align-items: center;
         justify-content: center;

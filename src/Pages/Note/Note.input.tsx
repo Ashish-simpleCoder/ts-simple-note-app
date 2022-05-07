@@ -21,7 +21,7 @@ const NoteInput = () => {
         <Wrapper mode='create_note_container'>
             <Input {...addNewState({state:TitleField, name:'title', placeholder: 'title...' })} />
             <Textarea {...addNewState({state: BodyField, name:'body', placeholder: 'your notes...' })} />
-            <Button isDisabled={disabled}>Create new note.</Button>
+            <Button isDisabled={disabled} mode='create_note_btn'>Create new note.</Button>
         </Wrapper>
     )
 }

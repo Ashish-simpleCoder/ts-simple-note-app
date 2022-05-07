@@ -17,7 +17,7 @@ const ValidationBox = ({validations}: {validations: {
 
     return(
         <div >
-            <H3 styles={{fontWeight:'500',transform:'scale(0.7)',textAlign:'center'}}>Password rules</H3>
+            <H3 styles={{transform:'scale(0.7)',textAlign:'center'}}>Password rules</H3>
             <Ul styles={{marginTop:'5rem'}}>
                 <li style={{color:lowercase ? '#0BA61B': '#BF2626'}}>
                     {lowercase ? <Check/> :<Cross />}

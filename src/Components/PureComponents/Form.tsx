@@ -28,11 +28,12 @@ export default Form
 
 const StyledForm = styled.form<{no_bg?: true | false, mode?: FormMode, animate?: true|false}>`
     height:45rem;
-    width:90%;
+    --form-width: 100%;
+    width:var(--form-width);
     display:flex;
     align-items:center;
     flex-direction:column;
-    max-width:35rem;
+    /* max-width:35rem; */
     background:var(--form-bg);
     border-radius: 0.5rem;
     box-shadow: var(--form-shadow);
@@ -42,12 +43,17 @@ const StyledForm = styled.form<{no_bg?: true | false, mode?: FormMode, animate?:
     ${({mode})=>{
         if(mode === 'login' || mode === 'register'){
             return css`
-                max-width:40rem;
+
                 border-radius:0.5rem;
                 padding-inline:2rem;
                 /* padding-block-end:2rem; */
                 padding-block-start: 0;
                 box-shadow: none;
+
+                @media (min-width: 650px){
+                    max-width:40rem;
+                }
+
             `
         }
         if(mode === 'create_note'){
