@@ -1,5 +1,4 @@
 import { memo } from "react"
-// import { useSelector } from "react-redux";
 import H3 from "../../Components/PureComponents/H3";
 import Ul from "../../Components/PureComponents/Ul";
 import Check from "../../Svg/Check";

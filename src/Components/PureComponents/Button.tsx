@@ -1,13 +1,21 @@
+import { memo } from "react"
 import styled, { css } from "styled-components"
+import Loader from "../Journal Components/Loader"
 
-const Button = ({children, cn, onClick, mode, isDisabled}: PropType) => {
+
+const Button = (props: PropType) => {
+    const {children, cn, onClick, mode, isDisabled, loader} = props
+
+    if(loader){
+        return <StyledButton><Loader /></StyledButton>
+    }
     return(
         <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}>
             {children}
         </StyledButton>
     )
 }
-export default Button
+export default memo(Button)
 
 
 

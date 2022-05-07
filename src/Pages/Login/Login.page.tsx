@@ -1,4 +1,4 @@
-import {memo, useMemo } from 'react'
+import {memo } from 'react'
 import Button from '../../Components/PureComponents/Button'
 import H3 from '../../Components/PureComponents/H3'
 import Input from '../../Components/PureComponents/Input'
@@ -8,10 +8,9 @@ import useForm from '../../Utility/Hooks/useForm'
 import useLoginValidations from '../../Utility/Hooks/useLoginValidations'
 
 const Login = () => {
-    const { addNewState, states, Form, FormGroup, FormLabel, handleSubmit } = useForm()
+    const { addNewState, states, Form, FormGroup, FormLabel } = useForm()
     const {isDisabled} = useLoginValidations({states})
 
-    // const url = useMemo(() => '/user/login', [])
 
     return(
             <Form mode='login' styles={{boxShadow:'var(--form-shadow)',transform:'translateY(3rem)'}}>

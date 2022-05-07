@@ -5,6 +5,7 @@ import Textarea from "../../Components/PureComponents/Textarea"
 import Wrapper from "../../Components/PureComponents/Wrapper"
 import useForm from "../../Utility/Hooks/useForm"
 
+
 const NoteInput = () => {
     const {addNewState, disabled, setDisabled, states} = useForm()
 
@@ -16,6 +17,7 @@ const NoteInput = () => {
             setDisabled(true)
         }else setDisabled(false)
     }, [states])
+
 
     return(
         <Wrapper mode='create_note_container'>

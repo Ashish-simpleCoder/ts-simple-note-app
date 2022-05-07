@@ -7,10 +7,10 @@ import useMountTransition from "../../../Utility/Hooks/useMountTransition"
 import If from "../../../Utility/Utility Components/If"
 import WithModalWrapper from "../../../Utility/Utility Components/withModalWrapper"
 import WithSuspense from "../../../Utility/Utility Components/WithSuspense"
-// import SearchBar from "../SearchBar"
 import Hamburger from "./Hamburger"
 import HeaderLogo from "./Header.logo"
 import MiniNav from "./MiniNav"
+
 const Nav = lazy(() => import('./Nav' /* webpackChunkName: 'Nav' */))
 const SearchBar = lazy(() => import('../SearchBar' /* webpackChunkName: 'SearchBar' */))
 // const MiniNav = lazy(() => import('./MiniNav' /* webpackChunkName: 'mini nav' */))
@@ -55,9 +55,12 @@ const Header = () => {
 }
 export default memo(Header)
 
+
 const StyledHeader = styled.header`
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
 
     div.in.visible{
         --opacity: 1;

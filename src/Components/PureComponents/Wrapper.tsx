@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 type ModeTypes =
     | 'edit_note' | 'note_output' | 'hero'
-    | 'create_note_container' | 'notes_container_wrapper' | 'notes_container' | 'sign_form_container'
+    | 'create_note_container' | 'notes-output-section' | 'notes_container' | 'sign_form_container'
 
 
 type WrapperProps = {
@@ -32,7 +32,7 @@ const StyledWrapper = styled.section<{mode?:ModeTypes}>`
     overflow:hidden;
     position:relative;
     padding:2rem;
-    --width: 35rem;
+    --width: 30rem;
 
     ${(props)=>{
         switch(props.mode){
@@ -48,15 +48,10 @@ const StyledWrapper = styled.section<{mode?:ModeTypes}>`
                     resize: none;
                     margin-block-end: 3rem;
                 }
-                button{
-                    /* border: 1px solid var(--clr);
-                    color: var(--clr); */
-                }
 
                 @media (min-width:700px){
                     height:100%;
                     position:fixed;
-                    --width: unset;
                     border-right: 1px solid var(--brand-border-200);
                 }
             `
@@ -81,12 +76,15 @@ const StyledWrapper = styled.section<{mode?:ModeTypes}>`
                 }
             `
 
-            case 'notes_container_wrapper': return css`
-                flex-direction:column;
+            case 'notes-output-section': return css`
+                gap: 2rem;
+                flex-wrap: wrap;
+
                 @media (min-width:700px){
                     position:relative;
                     left:var(--width);
                     width:calc(100% - var(--width));
+                    justify-content: space-around;
                 }
             `
 

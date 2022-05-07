@@ -13,7 +13,5 @@ export default memo(Left)
 const StyledLeft = styled.section`
     display:flex;
     align-items: center;
-    /* height: 100%; */
     justify-content: center;
-    /* width:50%; */
 `
