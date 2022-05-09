@@ -26,7 +26,7 @@ export const returnLoggedUser = (req:Request, res:Response, next:NextFunction)=>
     })
     return user
 }
-export const returnLoggedUserDetails = (req:Request, res:Response, next:NextFunction)=>{
+export const returnLoggedUserDetails = async(req:Request, res:Response, next:NextFunction)=>{
     const cookie_name = process.env.COOKIE_NAME || 'cookie_name'
     const secret = process.env.SECRET || 'yoursecretkey'
     const cookie = req.cookies[cookie_name]

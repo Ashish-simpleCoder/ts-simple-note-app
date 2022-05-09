@@ -12,7 +12,7 @@ const USER_SCHEMA = new Schema({
     password:{
         type:String,
         required:[true, 'password is required'],
-        minlength:[4, 'password length must be greater than 4 characters']
+        minlength:[6, 'password length must be greater than 4 characters']
     },
     notes:[
         {

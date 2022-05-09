@@ -1,17 +1,20 @@
 import { memo } from "react"
 import styled, { css } from "styled-components"
+import If from "../../Utility/Utility Components/If"
 import Loader from "../Journal Components/Loader"
 
 
 const Button = (props: PropType) => {
     const {children, cn, onClick, mode, isDisabled, loader} = props
 
-    if(loader){
-        return <StyledButton><Loader /></StyledButton>
-    }
+    // if(loader){
+    //     return <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}><Loader /></StyledButton>
+    // }
     return(
         <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}>
-            {children}
+            <If condition={loader}> <Loader /> </If>
+
+            <If condition={!loader}> {children} </If>
         </StyledButton>
     )
 }
@@ -32,6 +35,7 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
         border: none;
         /* color: ; */
         color: #979797;
+        /* width: 100%; */
     }
 
     /* border-radius: 0.5rem; */

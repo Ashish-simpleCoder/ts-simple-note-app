@@ -40,6 +40,7 @@ interface Theme  {
 interface User  {
     user : {
         email?: string,
+        _id?: string,
         notes?: any[]
     }
 }

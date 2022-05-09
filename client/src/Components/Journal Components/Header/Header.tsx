@@ -37,7 +37,7 @@ const Header = () => {
     return(
         <StyledHeader className="px">
             <HeaderLogo/>
-            <If condition={user.notes}>
+            <If condition={user.notes?.length != 0}>
                 <WithSuspense Comp={() => <SearchBar />}></WithSuspense>
             </If>
             <If condition={isLargerThan800}>

@@ -5,6 +5,8 @@ import genLoginError from "../utils/loginError";
 import { compare } from "bcrypt";
 import generateLoginToken from "../utils/genLoginToken";
 import throwRequiredFieldErr from "../utils/throwRequiredFieldErr";
+import {ILoginRes} from '../../type'
+
 
 export const handleRegister = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     await USER_MODEL.create(req.body,(err:Error, user:UserType)=>{
@@ -17,6 +19,7 @@ export const handleRegister = asyncWrapper(async(req:Request, res:Response, next
 export const handleLogin = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const {email, password} = req.body
 
+
     if(!email || !password){
         throwRequiredFieldErr(email, password, next)
     }
@@ -24,6 +27,7 @@ export const handleLogin = asyncWrapper(async(req:Request, res:Response, next:Ne
 
 
     USER_MODEL.findOne({email}, async(err:Error, user:UserType)=>{
+        console.log(user)
         if(!user) return next(genLoginError('email'))
         else{
             const isTruePass = await compare(password, user.password)
@@ -31,16 +35,16 @@ export const handleLogin = asyncWrapper(async(req:Request, res:Response, next:Ne
             else{
                 const cookie_name = process.env.COOKIE_NAME || 'cookie_name'
                 const cookie = generateLoginToken(user)
-                //also works for local
+                // if(req.headers.origin?.includes('localhost')){
+                //     res.cookie(cookie_name,cookie,{maxAge:200000000,sameSite: 'none', secure: true, path: '/', httpOnly:true,domain: 'localhost'
+                //     })
+                //     const response: ILoginRes = {_id:user._id, email:user.email}
+                //     return res.send(response)
+                // }
                 res.cookie(cookie_name,cookie,{maxAge:200000000, sameSite:'none', secure: true, path: '/', httpOnly:true,
-                // domain: process.env.MODE == 'prod' ? req.headers.origin?.slice(8) : ''
-                // domain: req.headers.origin?.slice(8)
                 })
-                //also for local
-                // res.cookie(cookie_name,cookie,{maxAge:200000000, sameSite:'none', secure:false, path: '/', httpOnly:true})
-                //for local
-                // res.cookie(cookie_name,cookie,{maxAge:200000000, sameSite:'none', path: '/', httpOnly:true})
-                return res.send({_id:user._id, email:user.email})
+                const response: ILoginRes= {_id:user._id, email:user.email}
+                return res.send(response)
             }
         }
     })

@@ -1,14 +1,17 @@
-import {lazy, memo, useCallback, useEffect, useRef } from 'react'
+import {FormEvent, lazy, memo, useCallback, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../Components/PureComponents/Button'
 import H3 from '../../Components/PureComponents/H3'
 import Input from '../../Components/PureComponents/Input'
 import Wrapper from '../../Components/PureComponents/Wrapper'
+import useUser from '../../Redux/hooks/useUser'
 import EmailSvg from '../../Svg/Email.svg'
 import PasswordSvg from '../../Svg/Password.svg'
 import useForm from '../../Utility/Hooks/useForm'
 import useLoginValidations from '../../Utility/Hooks/useLoginValidations'
 import useMediaQuery from '../../Utility/Hooks/useMediaQuery'
 import If from '../../Utility/Utility Components/If'
+import WithFetchUserHook from '../../Utility/Utility Components/WithFetchUserHook'
 import WithSuspense from '../../Utility/Utility Components/WithSuspense'
 import checkCapital from '../../Utility/Utility Functions/checkCapital'
 import checkCharLength from '../../Utility/Utility Functions/checkCharLength'
@@ -19,15 +22,25 @@ const ValidationBox = lazy(() => import("./ValidationBox" /* webpackChunkName: '
 
 
 const MiniValidationBox = lazy(() => import('./MiniValidationBox' /* webpackChunkName: 'MiniValidationBox' */))
+const ErrorBox = lazy(() => import('../../Components/Journal Components/ErrorBox' /* webpackChunkName: 'ErrorBox' */))
 
 
 
 const Signup = () => {
-    const {addNewState, setStates, states, Form, FormGroup, FormLabel } = useForm()
+    const {user} = useUser()
+    const navigate = useNavigate()
+    const {addNewState, setStates, states, Form, FormGroup, FormLabel, loading , handleSubmit, errors} = useForm()
     const {isDisabled, validations, setValidations, setIsDisabled} = useLoginValidations({states, mode:'signup'})
+
 
     const [isLargerThan700] = useMediaQuery({width: 700})
     const password_ref:any = useRef<HTMLInputElement>(null)
+
+
+    const redirectSuccessRegisterToLogin = useCallback(() => navigate('/login'), [])
+    useEffect(() => {
+        user._id && redirectSuccessRegisterToLogin()
+    }, [user._id])
 
 
     const updateStates = useCallback((value: string) => {
@@ -70,11 +83,14 @@ const Signup = () => {
         }else setIsDisabled(true)
     },[states['email']])
 
+    const login_url = new Request('http://localhost:5000/api/user')
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, login_url, setIsDisabled)
+
 
 
     return(
         <Wrapper mode='sign_form_container'>
-            <Form mode='register' >
+            <Form mode='register' onSubmit={handleRegister}>
                 <H3>Create an account</H3>
                 <FormGroup>
                     <FormLabel text='email'></FormLabel>
@@ -87,12 +103,16 @@ const Signup = () => {
                     <FormLabel text='Password'></FormLabel>
                     <PasswordSvg />
                     <If condition={!isLargerThan700}>
-                    <WithSuspense Comp={() => <MiniValidationBox validations={validations!} />} />
+                        <WithSuspense Comp={() => <MiniValidationBox validations={validations!} />} />
                     </If>
                     <Input {...addNewState({state: 'password', name: 'password', id: 'password', type: 'password'})} />
                 </FormGroup>
 
-                <Button mode='login_form_btn' isDisabled={isDisabled}>Signup</Button>
+                <If condition={errors.length != 0}>
+                    <WithSuspense Comp={() => <ErrorBox errors={errors}/>}></WithSuspense>
+                </If>
+
+                <Button mode='login_form_btn' isDisabled={isDisabled} loader={loading}>Signup</Button>
             </Form>
 
             { isLargerThan700 && ( <><hr style={{transform:'rotate(180deg)',opacity: '0.1'}}/>
@@ -101,4 +121,4 @@ const Signup = () => {
         </Wrapper>
     )
 }
-export default memo(Signup)
+export default memo(() => <WithFetchUserHook><Signup /></WithFetchUserHook>)

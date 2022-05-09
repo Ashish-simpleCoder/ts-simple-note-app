@@ -1,4 +1,5 @@
 import { memo } from "react"
+import WithAuthUser from "../../Utility/Utility Components/WithAuthUser"
 import NoteInput from "./Note.input"
 import NoteOutput from "./Note.output"
 
@@ -10,4 +11,4 @@ const Note = () => {
         </>
     )
 }
-export default memo(Note)
+export default memo(() => <WithAuthUser><Note /></WithAuthUser>)
