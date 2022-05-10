@@ -21,9 +21,9 @@ interface UserType {
 interface PropType {
     children?: JSX.Element | JSX.Element[] | string,
     cn?: string,
-    onClick?: () => {
+    onClick?: (() => Promise<void>) | (() => {
         type: ActionCreatorWithoutPayload<string>;
-    } | void,
+    } | void),
 
     mode?: BtnMode,
     isDisabled?: boolean,
