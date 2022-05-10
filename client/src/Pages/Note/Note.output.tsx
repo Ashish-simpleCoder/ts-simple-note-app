@@ -20,6 +20,8 @@ const NoteOutputContainer = () => {
         return note.title.trim().toLowerCase().includes(search.toLowerCase())  || note.body.trim().toLowerCase().includes(search.toLowerCase())
     },[search])
 
+
+
     const enableNoteEditModal = useCallback((e: any) => {
         const doesContains = e.target.classList.contains('note') | e.target.classList.contains('note-title') | e.target.classList.contains('note-body')
         if(doesContains){

@@ -17,9 +17,11 @@ export const createOneNote = asyncWrapper(async(req:Request, res:Response, next:
     const logged_user:any = returnLoggedUser(req, res, next)
     const user:UserType = await USER_MODEL.findById(logged_user._id)
     if(!user) return next({status:400,error:'unauthorised user'})
-    if(!req.body.title && !req.body.content) return next({error:'notes can not be blanked', mode:'note'})
-    const new_note = user.notes.push(req.body)
-    user.save()
+    if(!req.body.title && !req.body.body) return next({error:'notes can not be blanked', mode:'note'})
+    user.notes.push(req.body)
+    const new_note = await user.save().then((user: UserType) => {
+       return user.notes[user.notes.length-1]
+    })
     res.status(201).send({success:true, note: new_note})
 })
 
@@ -65,7 +67,7 @@ export const deleteOneNote = asyncWrapper(async(req:Request, res:Response, next:
         if(matchedCount) return res.send({success:true})
         if(!matchedCount) return next({status:404, error:'no note found with this id'})
     }
-    if(req.body.MOVE_TO_BIN){
+    if(req.body.BIN){
         const {matchedCount} = await USER_MODEL.updateOne({_id:payload._id,'notes._id':note_id},{$set:{'notes.$.delete':true}})
         if(matchedCount) return res.send({success:true})
         if(!matchedCount) return next({status:404, error:'no note found with this id'})
@@ -141,13 +143,13 @@ export const updateOneNote = asyncWrapper(async(req:Request, res:Response, next:
     if(!user) return next({status:400,error:'unauthorised user'})
 
     const _id = req.params.note_id
-    const {title, content, bg} = req.body
+    const {title, body, bg} = req.body
 
     const {matchedCount} = await USER_MODEL.updateOne(
         {_id:payload._id,'notes._id':_id},
         {$set:{
             'notes.$.title':title && title,
-            'notes.$.content':content && content,
+            'notes.$.body':body && body,
             'notes.$.bg':bg && bg
         }}
     )

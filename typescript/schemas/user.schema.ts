@@ -17,7 +17,7 @@ const USER_SCHEMA = new Schema({
     notes:[
         {
             title:{type:String},
-            content:{type:String},
+            body:{type:String},
             delete:{type:Boolean, default:false},
             bg:{
                 type:{},
@@ -46,7 +46,7 @@ export interface UserType extends Document{
     password:string,
     notes:{
         title?:string,
-        content?:string
+        body?:string
         bg?:[],
         _id?:Schema.Types.ObjectId
     }[],
