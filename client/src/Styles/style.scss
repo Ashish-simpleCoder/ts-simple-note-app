@@ -19,6 +19,9 @@ body{
     max-width: 150rem;
     margin-inline: auto;
 }
+.hide-overflow{
+    overflow: hidden;
+}
 #root{
     height: 100%;
 }

@@ -47,6 +47,9 @@ const StyledWrapper = styled.section<{mode?:ModeTypes}>`
                     height: 60%;
                     resize: none;
                     margin-block-end: 3rem;
+                    @media (max-width: 700px){
+                        height: 15rem;
+                    }
                 }
 
                 @media (min-width:700px){

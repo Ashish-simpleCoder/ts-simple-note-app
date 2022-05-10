@@ -86,6 +86,10 @@ body {
   margin-inline: auto;
 }
 
+.hide-overflow {
+  overflow: hidden;
+}
+
 #root {
   height: 100%;
 }
