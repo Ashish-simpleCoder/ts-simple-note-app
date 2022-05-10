@@ -2,6 +2,7 @@ import { lazy, useCallback, useEffect, useState } from "react"
 import styled, { css } from "styled-components"
 import Button from "../../Components/PureComponents/Button"
 import If from "../../Utility/Utility Components/If"
+import WithSuspense from "../../Utility/Utility Components/WithSuspense"
 
 const NoteInput = lazy(() => import('./Note.input' /* webpackChunkName: 'NoteInput' */))
 
@@ -20,7 +21,7 @@ const MiniNoteInput = () => {
     return(
         <StyledMiniNote expand={openMiniInput}>
             <If condition={openMiniInput}>
-                <NoteInput />
+                <WithSuspense Comp={() => <NoteInput />}/>
             </If>
             <Button  cn='open' onClick={handleOpenMiniInput}>&#43;</Button>
         </StyledMiniNote>
