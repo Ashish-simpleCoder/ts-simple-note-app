@@ -40,18 +40,18 @@ const NoteCard = memo((props: NoteProps)=>{
             </Wrapper>
 
             <Wrapper styles={{overflow:'hidden',flex:'1', padding:'0.5rem 1rem'}}>
-                <Para cn='note-content'>{note.body}</Para>
+                <Para cn='note-body'>{note.body}</Para>
             </Wrapper>
 
             <If condition={isLargerThan750 && isOverlayMenuVisibile}>
                 <WithSuspense Comp={() =>(
-                    <OverlayMenu cn={mode == 'recycle-page' ? 'recycle-overlay' : ''}>
+                    <OverlayMenu cn={`overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
                         <If condition={mode == 'note-page'}>
                             {/* <ActionLink handleClick={(e:MouseEvent<HTMLDivElement>)=>{setNoteClrMenuPosition!(e, note)}}>
                                 <Clr/>
                             </ActionLink> */}
                             {/* <Button  mode='delete_note_btn' onClick={()=>handleDeleteNote({_id:note._id})} loader={loader}/> */}
-                            <Button mode='delete_note_btn'>delete</Button>
+                            <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
                         </If>
                     </OverlayMenu>)
                 }/>
@@ -116,6 +116,10 @@ const StyledNote = styled.div`
         height:5rem;
         border-radius:50%;
         transform:translate(-50%, -50%);
+    }
+
+   span{
+        pointer-events: none;
     }
 
     @media (max-width:700px){
