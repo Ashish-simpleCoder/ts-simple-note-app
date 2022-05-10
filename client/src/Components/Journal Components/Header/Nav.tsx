@@ -17,7 +17,6 @@ const Nav = () => {
     const [shouldLogout, setShouldLogout] = useState(false)
 
     const navigate = useNavigate()
-    useEffect(() => navigate('/'), [states.user.email])
 
 
     const handleLogout = useCallback(async() => {
@@ -30,7 +29,10 @@ const Nav = () => {
 
 
     useEffect(() => {
-        shouldLogout && dispatch(setLogout())
+        if(shouldLogout){
+            dispatch(setLogout())
+            navigate('/')
+        }
     }, [shouldLogout])
 
 
