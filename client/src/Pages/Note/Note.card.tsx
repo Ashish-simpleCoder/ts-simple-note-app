@@ -45,7 +45,7 @@ const NoteCard = memo((props: NoteProps)=>{
 
             <If condition={isLargerThan750 && isOverlayMenuVisibile}>
                 <WithSuspense Comp={() =>(
-                    <OverlayMenu cn={`overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
+                    <OverlayMenu cn={`note-overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
                         <If condition={mode == 'note-page'}>
                             {/* <ActionLink handleClick={(e:MouseEvent<HTMLDivElement>)=>{setNoteClrMenuPosition!(e, note)}}>
                                 <Clr/>
