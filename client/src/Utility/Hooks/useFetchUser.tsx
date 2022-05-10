@@ -22,7 +22,6 @@ const useFetchUser = ({shouldCheckIfUserLogged = true}: {shouldCheckIfUserLogged
             (async() => {
                 const res = await fetch(url)
                 const data = await res.json()
-                console.log(data)
                 if('email' in data){
                     dispatch(setLogin(data['email']))
                 }

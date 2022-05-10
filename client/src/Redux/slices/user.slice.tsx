@@ -14,6 +14,9 @@ const userSlice  = createSlice({
         setLogout: (state) => {
             state.email = ''
         },
+        createNote: (state, action) => {
+            state.notes = [action.payload, ...state.notes]
+        },
         setNote : (state, action) => {
             state.notes = action.payload
         },
@@ -32,7 +35,7 @@ const userSlice  = createSlice({
         }
     }
 })
-export const {setLogin, setLogout, setNote, updateNote, deleteNote} = userSlice.actions
+export const {setLogin, setLogout, setNote, createNote, updateNote, deleteNote} = userSlice.actions
 export default userSlice.reducer
 
 // type UserType = {

@@ -1,12 +1,15 @@
 import { memo, useCallback } from "react"
 import Wrapper from "../../Components/PureComponents/Wrapper"
-import Note from "../../Note"
 import useSearch from "../../Redux/hooks/useSearch"
+import useUser from "../../Redux/hooks/useUser"
+import useNoteFetch from "../../Utility/Hooks/useNoteFetch"
 import NoteCard from "./Note.card"
 
 
 const NoteOutputContainer = () => {
+    useNoteFetch()
     const {search} = useSearch()
+    const {user} = useUser()
 
     const isInSearchResult = useCallback((note : INote) =>{
         if(search == undefined) return true
@@ -18,7 +21,7 @@ const NoteOutputContainer = () => {
     return(
         <Wrapper mode='notes-output-section'>
             {
-                Note.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none'}}/>)
+                user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none'}}/>)
             }
         </Wrapper>
     )
