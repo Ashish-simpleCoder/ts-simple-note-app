@@ -36,28 +36,15 @@ const NoteOutputContainer = () => {
 
 
 
-    const enableNoteEditModal = useCallback((e: any) => {
-        const doesContains = e.target.classList.contains('note') | e.target.classList.contains('note-title') | e.target.classList.contains('note-body')
-        if(doesContains){
+    const enableNoteEditModalHandler = useCallback((e: any) => {
+        const isNoteClicked = e.target.classList.contains('note') | e.target.classList.contains('note-title') | e.target.classList.contains('note-body')
+        if(isNoteClicked){
             const parentElement = e.target.parentElement.parentElement
             setNoteToBeEdited(v => ({...v, _id: parentElement.id}))
             setShouldEnableEditModal(true)
         }
     }, [])
-    useNoteClickListener({run: user.notes?.length != 0, handler: enableNoteEditModal, element: document.querySelector('.notes-output-section')})
-
-
-    useTranformEditModal({id: noteToBeEdited._id })
-
-
-    const noteUpdateHandler = useCallback(async(updated_note: Record<any, any>) => {
-        const isUpdated = await handleUpdateNote(updated_note)
-        if(isUpdated) {
-            setNoteToBeEdited(v => ({...v, _id: ''}))
-            dispatch(updateNote(updated_note))
-        }
-    }, [])
-    useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
+    useNoteClickListener({element: document.querySelector('.notes-output-section'), handler: enableNoteEditModalHandler, run: user.notes?.length != 0})
 
     useEffect(() => {
         if(noteToBeEdited._id && !noteToBeEdited.title){
@@ -73,10 +60,26 @@ const NoteOutputContainer = () => {
 
         let timer: NodeJS.Timer
         if(!noteToBeEdited._id){
-            timer = setTimeout(() => setShouldEnableEditModal(false), 300)
+            const modal_transition_time = 400
+            timer = setTimeout(() => setShouldEnableEditModal(false), modal_transition_time)
         }
         return () => clearTimeout(timer)
     }, [noteToBeEdited, shouldEnableEditModal])
+
+
+    useTranformEditModal({note_id: noteToBeEdited._id })
+
+
+    const noteUpdateHandler = useCallback(async(updated_note: Record<any, any>) => {
+        const isUpdated = await handleUpdateNote(updated_note)
+        if(isUpdated) {
+            setNoteToBeEdited(v => ({ _id: '', title: '', body: '', bg: ['']}))
+            dispatch(updateNote(updated_note))
+        }
+    }, [])
+    useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
+
+
 
 
     // for syncing the NoteToBeEdited with states values

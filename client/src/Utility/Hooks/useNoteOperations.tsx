@@ -1,6 +1,7 @@
 import { useCallback } from "react"
 
 const useNoteOperations = () => {
+
     const handleDeleteNote = useCallback(async(id: string) => {
         try{
             const res = await fetch(`http://localhost:5000/api/user/notes/${id}`, {
@@ -29,6 +30,8 @@ const useNoteOperations = () => {
             console.log(error)
         }
     }, [])
+
+
     return {handleDeleteNote, handleUpdateNote}
 }
 export default useNoteOperations
