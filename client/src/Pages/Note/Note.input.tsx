@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import Button from "../../Components/PureComponents/Button"
 import Input from "../../Components/PureComponents/Input"
@@ -55,4 +55,4 @@ const NoteInput = () => {
         </Wrapper>
     )
 }
-export default NoteInput
+export default memo(NoteInput)

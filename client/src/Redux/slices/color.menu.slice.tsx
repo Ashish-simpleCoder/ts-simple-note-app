@@ -15,7 +15,7 @@ const colorMenuSlice = createSlice({
         },
         clearColorMenu : (state) => {
             state.enable = false
-            state.item = { bg: ['', ''], _id: ''}
+            state.item = { bg: [''], _id: ''}
             state.position = {top: '', left: ''}
         }
     }

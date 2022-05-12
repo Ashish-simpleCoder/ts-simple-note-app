@@ -1,8 +1,11 @@
 import { memo, ReactNode } from "react";
 import styled, { css } from "styled-components";
-import Wrapper from "../../Components/PureComponents/Wrapper";
+import Button from "../../Components/PureComponents/Button";
 import useTheme from "../../Redux/hooks/useTheme";
 import WithModalWrapper from "../../Utility/Utility Components/withModalWrapper";
+import Clr from "./Clr.icon";
+import OverlayMenu from "./Overlay.menu";
+
 
 const EditModal = memo(({children, mode, bg}:{
     children:ReactNode,
@@ -10,14 +13,18 @@ const EditModal = memo(({children, mode, bg}:{
     bg: string[]
 })=>{
     const {theme} = useTheme()
+
     return(
         <WithModalWrapper>
-
-        {/* <Wrapper mode='edit_note'> */}
             <StyledEditModal mode={mode} id='modal' className="edit-modal" style={{background:theme ? bg[1] : bg[0], border:'var(--border)'}}>
                 {children}
+                <OverlayMenu cn={`note-overlay`}>
+                        {/* <If condition={mode == 'note-page'}> */}
+                            {/* <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button> */}
+                            <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
+                        {/* </If> */}
+                    </OverlayMenu>
             </StyledEditModal>
-        {/* </Wrapper> */}
         </WithModalWrapper>
     )
 })

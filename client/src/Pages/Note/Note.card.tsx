@@ -62,7 +62,6 @@ const NoteCard = memo((props: NoteProps)=>{
                     <OverlayMenu cn={`note-overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
                         <If condition={mode == 'note-page'}>
                             <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button>
-                            {/* <Button  mode='delete_note_btn' onClick={()=>handleDeleteNote({_id:note._id})} loader={loader}/> */}
                             <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
                         </If>
                     </OverlayMenu>)

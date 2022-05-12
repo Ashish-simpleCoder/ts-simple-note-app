@@ -15,6 +15,7 @@ const useTranformEditModal = ({note_id}: {note_id: string}) => {
         const element = document.getElementById(_id) as HTMLDivElement
 
         modal_ref.current = modal
+        modal_ref.current.id = _id
         element_ref.current = element
 
         element.style.opacity = '0'

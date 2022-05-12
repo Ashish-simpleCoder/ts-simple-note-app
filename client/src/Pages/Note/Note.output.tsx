@@ -39,8 +39,8 @@ const NoteOutputContainer = () => {
     const enableNoteEditModalHandler = useCallback((e: any) => {
         const isNoteClicked = e.target.classList.contains('note') | e.target.classList.contains('note-title') | e.target.classList.contains('note-body')
         if(isNoteClicked){
-            const parentElement = e.target.parentElement.parentElement
-            setNoteToBeEdited(v => ({...v, _id: parentElement.id}))
+            const note_id = e.target.parentElement.parentElement.id
+            setNoteToBeEdited(v => ({...v, _id: note_id}))
             setShouldEnableEditModal(true)
         }
     }, [])
@@ -53,7 +53,6 @@ const NoteOutputContainer = () => {
                 if(n._id == noteToBeEdited._id){
                     setStates({title: n.title, body: n.body})
                     setNoteToBeEdited(n)
-                    return
                 }
             })
         }
@@ -63,6 +62,7 @@ const NoteOutputContainer = () => {
             const modal_transition_time = 400
             timer = setTimeout(() => setShouldEnableEditModal(false), modal_transition_time)
         }
+
         return () => clearTimeout(timer)
     }, [noteToBeEdited, shouldEnableEditModal])
 
@@ -74,13 +74,11 @@ const NoteOutputContainer = () => {
         const isUpdated = await handleUpdateNote(updated_note)
         if(isUpdated) {
             setNoteToBeEdited(({ _id: '', title: '', body: '', bg: ['']}))
-            setStates({title: '', body: ''})
+            // setStates({title: '', body: ''})
             dispatch(updateNote(updated_note))
         }
     }, [])
     useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
-
-
 
 
     // for syncing the NoteToBeEdited with states values
@@ -90,19 +88,20 @@ const NoteOutputContainer = () => {
     }, [states])
 
 
-
-
-    const deleteNoteBtnClickHandler = useCallback(async(e: any) => {
+    const deleteNoteBtnClickHandler = useCallback(async(e: any ) => {
+        e.preventDefault()
         const isClickedDeleteBtn = e.target.classList.contains('note-delete-btn')
         if(isClickedDeleteBtn){
             const note_id: string = e.target.parentElement.parentElement.id
             const isDeleted = await handleDeleteNote(note_id)
             if(isDeleted){
                 dispatch(deleteNote(note_id))
+                // setNoteToBeEdited()
+                setShouldEnableEditModal(false)
             }
         }
     }, [])
-    useNoteClickListener({run: user.notes?.length != 0, handler: deleteNoteBtnClickHandler, element: document.querySelector('.notes-output-section')})
+    useNoteClickListener({run: user.notes?.length != 0 , handler: deleteNoteBtnClickHandler, element: document.querySelector('.notes-output-section')})
 
 
 
