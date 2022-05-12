@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import Input from "../../Components/PureComponents/Input"
 import Textarea from "../../Components/PureComponents/Textarea"
 import Wrapper from "../../Components/PureComponents/Wrapper"
@@ -47,8 +47,8 @@ const NoteOutputContainer = () => {
     useNoteClickListener({element: document.querySelector('.notes-output-section'), handler: enableNoteEditModalHandler, run: user.notes?.length != 0})
 
     useEffect(() => {
+        document.documentElement.classList.toggle('hide-overflow', shouldEnableEditModal)
         if(noteToBeEdited._id && !noteToBeEdited.title){
-            document.documentElement.classList.toggle('hide-overflow', shouldEnableEditModal)
             user.notes?.forEach(n => {
                 if(n._id == noteToBeEdited._id){
                     setStates({title: n.title, body: n.body})
@@ -73,7 +73,8 @@ const NoteOutputContainer = () => {
     const noteUpdateHandler = useCallback(async(updated_note: Record<any, any>) => {
         const isUpdated = await handleUpdateNote(updated_note)
         if(isUpdated) {
-            setNoteToBeEdited(v => ({ _id: '', title: '', body: '', bg: ['']}))
+            setNoteToBeEdited(({ _id: '', title: '', body: '', bg: ['']}))
+            setStates({title: '', body: ''})
             dispatch(updateNote(updated_note))
         }
     }, [])
@@ -109,10 +110,7 @@ const NoteOutputContainer = () => {
     return(
         <Wrapper mode='notes-output-section'>
             {
-                user.notes?.map(n => {
-                    if(n.delete) return null
-                    return <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none'}}/>
-                })
+                user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none'}}/>)
             }
             <If condition={shouldEnableEditModal}>
                 <EditModal mode="edit_note" bg={noteToBeEdited.bg}>

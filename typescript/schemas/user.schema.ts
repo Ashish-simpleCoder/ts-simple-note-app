@@ -48,6 +48,7 @@ export interface UserType extends Document{
         title?:string,
         body?:string
         bg?:[],
-        _id?:Schema.Types.ObjectId
+        _id?:Schema.Types.ObjectId,
+        delete?: boolean
     }[],
 }

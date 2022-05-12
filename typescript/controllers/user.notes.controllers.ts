@@ -33,7 +33,7 @@ export const getNotes = asyncWrapper(async(req:Request,res:Response,next:NextFun
     const user:UserType = await USER_MODEL.findById(payload._id).select('notes').select('_id')
     if(!user) return next({status:400,error:'unauthorized user'})
     if(!user.notes) return next({error:'no notes found'})
-    return res.status(200).send({notes:user.notes.reverse()})
+    return res.status(200).send({notes:user.notes.filter(n => !n.delete).reverse()})
 })
 // if user wants to get only one note.
 export const getOneNote = asyncWrapper(async(req:Request,res:Response,next:NextFunction)=>{
