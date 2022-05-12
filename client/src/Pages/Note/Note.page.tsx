@@ -4,10 +4,10 @@ import useMediaQuery from "../../Utility/Hooks/useMediaQuery"
 import If from "../../Utility/Utility Components/If"
 import WithAuthUser from "../../Utility/Utility Components/WithAuthUser"
 import WithSuspense from "../../Utility/Utility Components/WithSuspense"
+import NoteOutput from "./Note.output"
 
 
 const NoteInput = lazy(() => import('./Note.input' /* webpackChunkName: 'NoteInput' */))
-const NoteOutput = lazy(() => import('./Note.output' /* webpackChunkName: 'NoteOutput' */))
 const MiniNoteInput = lazy(() => import('./MiniNote.input' /* webpackChunkName: 'MiniNoteInput' */))
 
 
@@ -24,11 +24,11 @@ const Note = () => {
            </If>
            <If condition={!isLargerThan700px}>
                 <WithSuspense Comp={() => <MiniNoteInput />}/>
-                {/* <Button  cn='open-miniinput-btn' onClick={handleOpenMiniInput}>&#43;</Button> */}
            </If>
             <If condition={user.notes?.length != 0}>
-                <WithSuspense Comp={() => <NoteOutput />}/>
+                <NoteOutput />
             </If>
+
         </>
     )
 }
