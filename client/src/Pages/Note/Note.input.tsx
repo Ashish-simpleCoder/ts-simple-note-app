@@ -9,7 +9,7 @@ import useForm from "../../Utility/Hooks/useForm"
 
 
 const NoteInput = () => {
-    const {addNewState, disabled, setDisabled, states, loading} = useForm()
+    const {addNewState, disabled, setDisabled, states, loading, setStates} = useForm()
     const dispatch = useDispatch()
     const [shouldAddNewNote, setShouldAddNewNote] = useState(false)
     const [newNoteToBeAdded, setNewNoteToBeAdded] = useState({_id:'',bg: [''], title: '', body: '',delete: false})
@@ -33,6 +33,7 @@ const NoteInput = () => {
             if(data.success){
                 setNewNoteToBeAdded(data.note)
                 setShouldAddNewNote(true)
+                setStates({[TitleField]: '', [BodyField]: ''})
             }
         }catch(err){
             console.log('err' + err)
