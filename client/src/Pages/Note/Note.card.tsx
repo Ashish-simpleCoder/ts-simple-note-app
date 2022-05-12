@@ -1,13 +1,17 @@
-import { CSSProperties, lazy, memo, useCallback, useState } from "react";
+import { CSSProperties, lazy, memo, MouseEvent, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import ActionLink from "../../Components/Journal Components/Action.link";
 import Button from "../../Components/PureComponents/Button";
 import H4 from "../../Components/PureComponents/Heading/H4";
 import Para from "../../Components/PureComponents/P";
 import Span from "../../Components/PureComponents/Span";
 import Wrapper from "../../Components/PureComponents/Wrapper";
+import useColorMenu from "../../Redux/hooks/useColorMenu";
+import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery";
 import If from "../../Utility/Utility Components/If";
 import WithSuspense from "../../Utility/Utility Components/WithSuspense";
+import Clr from "./Clr.icon";
 const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Overlay menu' */))
 
 
@@ -19,15 +23,25 @@ export type NoteProps = {
 
 const NoteCard = memo((props: NoteProps)=>{
     const {note, styles, mode = 'note-page'} = props
+    const {color_menu, dispatch} = useColorMenu()
 
     const [isLargerThan750] = useMediaQuery({width: 750})
 
     const [isOverlayMenuVisibile, setIsOverlayMenuVisibile] = useState(false)
+
+
     const setOverlayMenuTrue = useCallback(() => isLargerThan750 && setIsOverlayMenuVisibile(true), [isLargerThan750])
     const setOverlayMenuFalse = useCallback(() => isLargerThan750 && setIsOverlayMenuVisibile(false), [isLargerThan750])
 
-    const [loader] = useState(true)
 
+    const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const {top, left} = e.currentTarget.getBoundingClientRect()
+        dispatch(setColorMenu({
+            enable: !color_menu.enable,
+            item: {_id: note._id, bg: note.bg!},
+            position:{top:top+20+'px', left:left+20+'px'}
+        }))
+    }, [])
 
 
 
@@ -47,9 +61,7 @@ const NoteCard = memo((props: NoteProps)=>{
                 <WithSuspense Comp={() =>(
                     <OverlayMenu cn={`note-overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
                         <If condition={mode == 'note-page'}>
-                            {/* <ActionLink handleClick={(e:MouseEvent<HTMLDivElement>)=>{setNoteClrMenuPosition!(e, note)}}>
-                                <Clr/>
-                            </ActionLink> */}
+                            <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button>
                             {/* <Button  mode='delete_note_btn' onClick={()=>handleDeleteNote({_id:note._id})} loader={loader}/> */}
                             <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
                         </If>

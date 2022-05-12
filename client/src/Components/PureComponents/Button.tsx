@@ -1,17 +1,34 @@
-import { memo } from "react"
+import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
+import { CSSProperties, memo, MouseEvent, ReactNode } from "react"
 import styled, { css } from "styled-components"
 import If from "../../Utility/Utility Components/If"
 import Loader from "../Journal Components/Loader"
 
+interface PropType {
+    children?: JSX.Element | JSX.Element[] | string | ReactNode,
+    cn?: string,
+    onClick?:
+    (() => Promise<void>) |
+    (() => {
+        type: ActionCreatorWithoutPayload<string>;
+    } | void) |
+    (() => { payload: undefined; type: string; }) |
+    any,
+
+    mode?: BtnMode,
+    isDisabled?: boolean,
+    loader?: boolean,
+    style?: CSSProperties
+}
 
 const Button = (props: PropType) => {
-    const {children, cn, onClick, mode, isDisabled, loader} = props
+    const {children, cn, onClick, mode, isDisabled, loader, style} = props
 
     // if(loader){
     //     return <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}><Loader /></StyledButton>
     // }
     return(
-        <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}>
+        <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled} style={style}>
             <If condition={loader}> <Loader /> </If>
 
             <If condition={!loader}> {children} </If>
@@ -25,7 +42,6 @@ export default memo(Button)
 const StyledButton = styled.button<{mode?: BtnMode}>`
     font-size: clamp(1.6rem, 1.6rem, 1.6vw);
     text-decoration: none;
-    /* color: var(--brand-clr-400); */
     padding: clamp(0.3rem, 0.4rem, 0.4vw) clamp(0.7rem, 0.9rem, 0.9vw);
     height: clamp(3.5rem, 4rem, 4vw);
 
@@ -38,8 +54,7 @@ const StyledButton = styled.button<{mode?: BtnMode}>`
         /* width: 100%; */
     }
 
-    /* border-radius: 0.5rem; */
-    /* border:0.5px solid var(--brand-border-400); */
+
     transition: background 0.3s;
     background-color: var(--body-bg);   // for theme-toggling button
     cursor: pointer;

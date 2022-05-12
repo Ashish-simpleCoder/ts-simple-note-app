@@ -1,9 +1,13 @@
 import { lazy, memo  } from "react"
+import useColorMenu from "../../Redux/hooks/useColorMenu"
 import useUser from "../../Redux/hooks/useUser"
+import { setColorMenu } from "../../Redux/slices/color.menu.slice"
+import useClickListener from "../../Utility/Hooks/useClickListener"
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery"
 import If from "../../Utility/Utility Components/If"
 import WithAuthUser from "../../Utility/Utility Components/WithAuthUser"
 import WithSuspense from "../../Utility/Utility Components/WithSuspense"
+import ColorList from "./Color.list"
 import NoteOutput from "./Note.output"
 
 
@@ -13,8 +17,18 @@ const MiniNoteInput = lazy(() => import('./MiniNote.input' /* webpackChunkName: 
 
 const Note = () => {
     const [isLargerThan700px] = useMediaQuery({width: 700})
-    const {user} = useUser()
+    const {color_menu, dispatch} = useColorMenu()
 
+    // useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
+    useClickListener({
+        element: document,
+        handler: () => dispatch(setColorMenu({
+            enable: !color_menu.enable,
+            item: {_id: '', bg: ''},
+            position:{top: '', left:  ''}
+        })),
+        run: color_menu.enable
+    })
 
 
     return(
@@ -25,10 +39,12 @@ const Note = () => {
            <If condition={!isLargerThan700px}>
                 <WithSuspense Comp={() => <MiniNoteInput />}/>
            </If>
-            <If condition={user.notes?.length != 0}>
-                <NoteOutput />
-            </If>
 
+            <NoteOutput />
+
+            <If condition={color_menu.enable}>
+                <ColorList styles={color_menu.position}/>
+            </If>
         </>
     )
 }

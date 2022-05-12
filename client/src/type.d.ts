@@ -37,6 +37,19 @@ type FormMode = 'login' | 'register' | 'create_note'
 interface Theme  {
     theme : { value: boolean }
 }
+interface ColorMenu  {
+    color_menu: {
+        enable: boolean,
+        item: {
+            bg : string[],
+            _id: string
+        },
+        position: {
+            top: string,
+            left: string
+        }
+    }
+}
 interface User  {
     user : {
         email?: string,
