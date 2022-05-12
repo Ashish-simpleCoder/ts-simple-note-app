@@ -1,20 +1,20 @@
-import { lazy, memo, useCallback, useState } from "react"
-import Button from "../../Components/PureComponents/Button"
+import { lazy, memo  } from "react"
+import useUser from "../../Redux/hooks/useUser"
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery"
 import If from "../../Utility/Utility Components/If"
 import WithAuthUser from "../../Utility/Utility Components/WithAuthUser"
 import WithSuspense from "../../Utility/Utility Components/WithSuspense"
-import NoteOutput from "./Note.output"
+
 
 const NoteInput = lazy(() => import('./Note.input' /* webpackChunkName: 'NoteInput' */))
+const NoteOutput = lazy(() => import('./Note.output' /* webpackChunkName: 'NoteOutput' */))
 const MiniNoteInput = lazy(() => import('./MiniNote.input' /* webpackChunkName: 'MiniNoteInput' */))
 
 
 const Note = () => {
     const [isLargerThan700px] = useMediaQuery({width: 700})
-    // const [openMiniInput, setOpenMiniInput] = useState(false)
+    const {user} = useUser()
 
-    // const handleOpenMiniInput = useCallback(() => setOpenMiniInput(v => !v), [])
 
 
     return(
@@ -26,7 +26,9 @@ const Note = () => {
                 <WithSuspense Comp={() => <MiniNoteInput />}/>
                 {/* <Button  cn='open-miniinput-btn' onClick={handleOpenMiniInput}>&#43;</Button> */}
            </If>
-            <NoteOutput />
+            <If condition={user.notes?.length != 0}>
+                <WithSuspense Comp={() => <NoteOutput />}/>
+            </If>
         </>
     )
 }
