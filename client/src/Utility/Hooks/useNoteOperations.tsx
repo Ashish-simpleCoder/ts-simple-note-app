@@ -15,19 +15,16 @@ const useNoteOperations = () => {
         }
     }, [])
 
-    const handleUpdateNote = useCallback( async(noteToBeEdited: Record<any, any>) => {
+    const handleUpdateNote = useCallback( async(update_note: Record<any, any>) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/user/notes/${noteToBeEdited._id}`, {
+            const res = await fetch(`http://localhost:5000/api/user/notes/${update_note._id}`, {
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(noteToBeEdited),
+                body: JSON.stringify(update_note),
                 credentials: 'include',
                 method: 'PATCH'
             })
             const data = await res.json()
-            if(data.success){
-                // setNoteToBeEdited(v => ({...v, _id: ''}))
-                // dispatch(updateNote(noteToBeEdited))
-            }
+            return await data.success
         } catch (error) {
             console.log(error)
         }

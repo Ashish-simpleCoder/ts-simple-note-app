@@ -21,7 +21,7 @@ const NoteOutputContainer = () => {
     const {addNewState, setStates, states} = useForm()
     const {search} = useSearch()
     const {user, dispatch} = useUser()
-    const {handleDeleteNote} = useNoteOperations()
+    const {handleDeleteNote, handleUpdateNote} = useNoteOperations()
 
 
     const [shouldEnableEditModal, setShouldEnableEditModal] = useState(false)
@@ -48,21 +48,17 @@ const NoteOutputContainer = () => {
 
 
     useTranformEditModal({id: noteToBeEdited._id })
-    const handler = useCallback( async(noteToBeEdited: Record<any, any>) => {
-        const res = await fetch(`http://localhost:5000/api/user/notes/${noteToBeEdited._id}`, {
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(noteToBeEdited),
-            credentials: 'include',
-            method: 'PATCH'
-        })
-        const data = await res.json()
-        if(data.success){
-            setNoteToBeEdited(v => ({...v, _id: ''}))
-            dispatch(updateNote(noteToBeEdited))
-        }
 
+
+    const noteUpdateHandler = useCallback(async(updated_note: Record<any, any>) => {
+        const isUpdated = await handleUpdateNote(updated_note)
+        if(isUpdated) {
+            setNoteToBeEdited(v => ({...v, _id: ''}))
+            dispatch(updateNote(updated_note))
+        }
     }, [])
-    useClickListener({ element: document, handler: () => handler(noteToBeEdited) , run: !!noteToBeEdited._id })
+    useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
+
     useEffect(() => {
         if(noteToBeEdited._id && !noteToBeEdited.title){
             document.documentElement.classList.toggle('hide-overflow', shouldEnableEditModal)
@@ -74,12 +70,17 @@ const NoteOutputContainer = () => {
                 }
             })
         }
+
+        let timer: NodeJS.Timer
         if(!noteToBeEdited._id){
-                        // setShouldEnableEditModal(false)
-                        setTimeout(() => setShouldEnableEditModal(false), 300)
+            timer = setTimeout(() => setShouldEnableEditModal(false), 300)
         }
+        return () => clearTimeout(timer)
     }, [noteToBeEdited, shouldEnableEditModal])
 
+
+    // for syncing the NoteToBeEdited with states values
+    // because i also want the _id, bg  attributes of the note
     useEffect(() => {
         setNoteToBeEdited(v => ({...v, ...states}))
     }, [states])
