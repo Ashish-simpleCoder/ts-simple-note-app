@@ -1,7 +1,7 @@
 import { lazy, memo  } from "react"
 import useColorMenu from "../../Redux/hooks/useColorMenu"
 import useUser from "../../Redux/hooks/useUser"
-import { setColorMenu } from "../../Redux/slices/color.menu.slice"
+import { clearColorMenu, setColorMenu } from "../../Redux/slices/color.menu.slice"
 import useClickListener from "../../Utility/Hooks/useClickListener"
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery"
 import If from "../../Utility/Utility Components/If"
@@ -22,11 +22,7 @@ const Note = () => {
     // useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
     useClickListener({
         element: document,
-        handler: () => dispatch(setColorMenu({
-            enable: !color_menu.enable,
-            item: {_id: '', bg: ''},
-            position:{top: '', left:  ''}
-        })),
+        handler: () => dispatch(clearColorMenu()),
         run: color_menu.enable
     })
 
