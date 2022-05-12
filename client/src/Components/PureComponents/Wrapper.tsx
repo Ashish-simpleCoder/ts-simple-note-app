@@ -101,16 +101,9 @@ const StyledWrapper = styled.section<{mode?:ModeTypes}>`
                 }
             `
             case 'edit_note': return css`
-                width:100%;
-                height:100%;
-                top:0 !important;
-                inset:0;
                 position:fixed;
-                align-items:center;
-                justify-content:center;
-                background:var(--edit-modal-bg);
-                display:none;
-                border-radius:0.5rem;
+                inset:0;
+                background: rgba(0,0,0, 0.5);
             `
             default: return css`
             `

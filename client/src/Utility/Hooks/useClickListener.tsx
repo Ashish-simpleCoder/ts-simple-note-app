@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react"
 
-const useClickListener = ({eventName,eventName2 = 'keyup', element2 = window, handler, element = window, run,}:{
+const useClickListener = ({eventName = 'click',eventName2 = 'keyup', element2 = window, handler, element = window, run,}:{
     handler: any,
-    eventName: 'click',
+    eventName?: 'click',
     eventName2?: 'keyup',
     element2?: Window,
     element: Element | null | Window & typeof globalThis | Document,

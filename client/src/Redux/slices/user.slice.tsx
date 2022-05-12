@@ -22,14 +22,13 @@ const userSlice  = createSlice({
         },
         updateNote : (state, action)=> {
             state.notes = state.notes.map(note => {
-                if(note.id == action.payload.id){
+                if(note._id == action.payload._id){
                     return action.payload
                 }
                 return note
             })
         },
         deleteNote : (state, action)=> {
-            console.log(action)
             state.notes = state.notes.filter(note => {
                 return note._id != action.payload
             })
