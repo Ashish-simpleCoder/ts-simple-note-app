@@ -33,7 +33,6 @@ const NoteInput = () => {
             if(data.success){
                 setNewNoteToBeAdded(data.note)
                 setShouldAddNewNote(true)
-                setStates({[TitleField]: '', [BodyField]: ''})
             }
         }catch(err){
             console.log('err' + err)
@@ -43,6 +42,7 @@ const NoteInput = () => {
     useEffect(() => {
         if(shouldAddNewNote){
             dispatch(createNote(newNoteToBeAdded))
+            setStates({[TitleField]: '', [BodyField]: ''})
             setShouldAddNewNote(false)
         }
     }, [ newNoteToBeAdded, shouldAddNewNote])
