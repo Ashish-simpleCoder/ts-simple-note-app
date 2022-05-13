@@ -1,11 +1,11 @@
-import { CSSProperties, lazy, memo, MouseEvent, useCallback, useEffect, useState } from "react";
+import { CSSProperties, lazy, memo, MouseEvent, useCallback, useState } from "react";
 import styled from "styled-components";
-import ActionLink from "../../Components/Journal Components/Action.link";
 import Button from "../../Components/PureComponents/Button";
 import H4 from "../../Components/PureComponents/Heading/H4";
 import Para from "../../Components/PureComponents/P";
 import Span from "../../Components/PureComponents/Span";
 import Wrapper from "../../Components/PureComponents/Wrapper";
+import { INote } from "../../Inote";
 import useColorMenu from "../../Redux/hooks/useColorMenu";
 import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery";
@@ -16,7 +16,7 @@ const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Ove
 
 
 export type NoteProps = {
-    note:Note,
+    note: INote,
     styles?: CSSProperties,
     mode?: | 'note-page' | 'recycle-page'
 }
