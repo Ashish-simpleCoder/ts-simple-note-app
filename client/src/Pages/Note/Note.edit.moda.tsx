@@ -1,28 +1,40 @@
-import { memo, ReactNode } from "react";
+import { memo, MouseEvent, ReactNode, useCallback } from "react";
 import styled, { css } from "styled-components";
 import Button from "../../Components/PureComponents/Button";
+import { INote } from "../../Inote";
+import useColorMenu from "../../Redux/hooks/useColorMenu";
 import useTheme from "../../Redux/hooks/useTheme";
+import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import WithModalWrapper from "../../Utility/Utility Components/withModalWrapper";
 import Clr from "./Clr.icon";
 import OverlayMenu from "./Overlay.menu";
 
 
-const EditModal = memo(({children, mode, bg}:{
+const EditModal = memo(({children, mode, bg, noteToBeEdited}:{
     children:ReactNode,
     mode?:string,
-    bg: string[]
+    bg: string[],
+    noteToBeEdited: INote
 })=>{
-    const {theme} = useTheme()
+    const {theme, dispatch} = useTheme()
+    const {color_menu} = useColorMenu()
+
+    const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const {top, left} = e.currentTarget.getBoundingClientRect()
+        dispatch(setColorMenu({
+            enable: !color_menu.enable,
+            item: {_id: noteToBeEdited._id, bg: noteToBeEdited.bg!},
+            position:{top:top+20+'px', left:left+20+'px'}
+        }))
+    }, [])
 
     return(
         <WithModalWrapper>
             <StyledEditModal mode={mode} id='modal' className="edit-modal" style={{background: theme ? bg[1] : bg[0], border:'var(--border)'}}>
                 {children}
                 <OverlayMenu cn={`note-overlay`}>
-                        {/* <If condition={mode == 'note-page'}> */}
-                            {/* <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button> */}
-                            <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
-                        {/* </If> */}
+                        <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button>
+                        <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
                     </OverlayMenu>
             </StyledEditModal>
         </WithModalWrapper>

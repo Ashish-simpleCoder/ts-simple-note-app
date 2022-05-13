@@ -61,7 +61,7 @@ const NoteOutputContainer = () => {
         }
 
         return () => clearTimeout(timer)
-    }, [noteToBeEdited, shouldEnableEditModal])
+    }, [noteToBeEdited, shouldEnableEditModal, user.notes])
 
 
 
@@ -87,7 +87,7 @@ const NoteOutputContainer = () => {
                 user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none', backgroundColor: theme ? n.bg[1] : n.bg[0]}}/>)
             }
             <If condition={shouldEnableEditModal}>
-                <EditModal mode="edit_note" bg={noteToBeEdited.bg}>
+                <EditModal mode="edit_note" bg={noteToBeEdited.bg} noteToBeEdited={noteToBeEdited}>
                     <Input {...addNewState({name: 'title', placeholder: 'update title',  state: 'title'})} />
                     <Textarea {...addNewState({name: 'body', placeholder: 'update body',  state: 'body'})} />
                 </EditModal>

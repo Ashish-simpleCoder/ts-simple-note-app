@@ -4,7 +4,7 @@ const colorMenuSlice = createSlice({
     name: 'color_menu',
     initialState: {
         enable: false,
-        item:{ bg:[''],_id:'' },
+        item:{ bg:[''],_id:'', title: '', body: '' },
         position:{ top : '', left: '' }
     },
     reducers: {
@@ -18,7 +18,7 @@ const colorMenuSlice = createSlice({
         },
         clearColorMenu : (state) => {
             state.enable = false
-            state.item = { bg: [''], _id: ''}
+            state.item = { bg: [''], _id: '', title: '', body: ''}
             state.position = {top: '', left: ''}
         }
     }

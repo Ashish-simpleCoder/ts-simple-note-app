@@ -30,14 +30,6 @@ const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
          dispatch(changeNoteColor({bg: clr[Object.keys(clr)[0]], _id: color_menu.item._id}))
          dispatch(setOnlyBg(clr[Object.keys(clr)[0]]))
       }
-
-    //   updateNote(`/api/v1/user/notes/${menu?.item._id}`, {...menu.item, bg:clr[Object.keys(clr)[0]]})
-    //   const data = await fetchNotes('/api/v1/user/notes')
-    //   if(!data?.notes) return
-
-    //   setUser(v=>({...v, notes:data.notes}))    //setting the updated notes from the server to the client
-    //   setEditNote((v) => ({...v, bg:clr[Object.keys(clr)[0]]}))     //setting the updated color to the edit modal as well on live
-    //   setNoteClrMenu && setNoteClrMenu(v=>({...v, item:{...v.item, bg:clr[Object.keys(clr)[0]]}}))       //also updating the menu state
    }, [color_menu ])
 
 
