@@ -14,6 +14,8 @@ import If from "../../Utility/Utility Components/If"
 import NoteCard from "./Note.card"
 import EditModal from "./Note.edit.moda"
 import useNoteOperations from '../../Utility/Hooks/useNoteOperations'
+import useTheme from "../../Redux/hooks/useTheme"
+import useColorMenu from "../../Redux/hooks/useColorMenu"
 
 
 const NoteOutputContainer = () => {
@@ -22,6 +24,7 @@ const NoteOutputContainer = () => {
     const {search} = useSearch()
     const {user, dispatch} = useUser()
     const {handleDeleteNote, handleUpdateNote} = useNoteOperations()
+    const {color_menu} = useColorMenu()
 
 
     const [shouldEnableEditModal, setShouldEnableEditModal] = useState(false)
@@ -53,6 +56,7 @@ const NoteOutputContainer = () => {
                 if(n._id == noteToBeEdited._id){
                     setStates({title: n.title, body: n.body})
                     setNoteToBeEdited(n)
+                    console.log(n)
                 }
             })
         }
@@ -104,12 +108,13 @@ const NoteOutputContainer = () => {
     useNoteClickListener({run: user.notes?.length != 0 , handler: deleteNoteBtnClickHandler, element: document.querySelector('.notes-output-section')})
 
 
+    const {theme} = useTheme()
 
 
     return(
         <Wrapper mode='notes-output-section'>
             {
-                user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none'}}/>)
+                user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none', backgroundColor: theme ? n.bg[1] : n.bg[0]}}/>)
             }
             <If condition={shouldEnableEditModal}>
                 <EditModal mode="edit_note" bg={noteToBeEdited.bg}>

@@ -16,7 +16,7 @@ const EditModal = memo(({children, mode, bg}:{
 
     return(
         <WithModalWrapper>
-            <StyledEditModal mode={mode} id='modal' className="edit-modal" style={{background:theme ? bg[1] : bg[0], border:'var(--border)'}}>
+            <StyledEditModal mode={mode} id='modal' className="edit-modal" style={{background: theme ? bg[1] : bg[0], border:'var(--border)'}}>
                 {children}
                 <OverlayMenu cn={`note-overlay`}>
                         {/* <If condition={mode == 'note-page'}> */}
@@ -49,6 +49,7 @@ const StyledEditModal = styled.form<{mode?:string}>`
             case 'edit_note': return css`
                 textarea, input{
                     width:100%;
+                    background-color: unset;
                     &:focus{
                         outline: none;
                         background-color: inherit;

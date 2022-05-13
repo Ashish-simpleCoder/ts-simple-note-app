@@ -13,6 +13,9 @@ const colorMenuSlice = createSlice({
             state.item = action.payload.item
             state.position = action.payload.position
         },
+        setOnlyBg : (state, action) => {
+            state.item.bg = action.payload
+        },
         clearColorMenu : (state) => {
             state.enable = false
             state.item = { bg: [''], _id: ''}
@@ -20,5 +23,5 @@ const colorMenuSlice = createSlice({
         }
     }
 })
-export const {setColorMenu, clearColorMenu} = colorMenuSlice.actions
+export const {setColorMenu, clearColorMenu, setOnlyBg} = colorMenuSlice.actions
 export default colorMenuSlice.reducer

@@ -20,6 +20,15 @@ const userSlice  = createSlice({
         setNote : (state, action) => {
             state.notes = action.payload
         },
+        changeNoteColor : (state, action) => {
+            state.notes = state.notes.map(note => {
+                if(note._id == action.payload._id){
+                    const new_note = {...note, bg: action.payload.bg}
+                    return new_note
+                }
+                return note
+            })
+        },
         updateNote : (state, action)=> {
             state.notes = state.notes.map(note => {
                 if(note._id == action.payload._id){
@@ -35,7 +44,7 @@ const userSlice  = createSlice({
         }
     }
 })
-export const {setLogin, setLogout, setNote, createNote, updateNote, deleteNote} = userSlice.actions
+export const {setLogin, setLogout, setNote, createNote, updateNote, deleteNote, changeNoteColor} = userSlice.actions
 export default userSlice.reducer
 
 // type UserType = {

@@ -5,6 +5,8 @@ import ColorBox from "./Color.box"
 import useColorMenu from "../../Redux/hooks/useColorMenu"
 import useUser from "../../Redux/hooks/useUser"
 import WithModalWrapper from "../../Utility/Utility Components/withModalWrapper"
+import { setOnlyBg } from "../../Redux/slices/color.menu.slice"
+import { changeNoteColor, updateNote } from "../../Redux/slices/user.slice"
 
 
 
@@ -16,6 +18,18 @@ const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
       e.stopPropagation()
       if(!color_menu?.item) return         //if note edit mode enabled then return
       if(color_menu.item.bg.includes(color)) return      //if user sets the color which is already setted then return
+
+      const res = await fetch(`http://localhost:5000/api/user/note/color/${color_menu.item._id}`, {
+         credentials: 'include',
+         method: 'PATCH',
+         body: JSON.stringify( { bg: clr[Object.keys(clr)[0]]} ),
+         headers: { 'Content-Type': 'application/json'},
+      })
+      const data = await res.json()
+      if(data.success){
+         dispatch(changeNoteColor({bg: clr[Object.keys(clr)[0]], _id: color_menu.item._id}))
+         dispatch(setOnlyBg(clr[Object.keys(clr)[0]]))
+      }
 
     //   updateNote(`/api/v1/user/notes/${menu?.item._id}`, {...menu.item, bg:clr[Object.keys(clr)[0]]})
     //   const data = await fetchNotes('/api/v1/user/notes')
