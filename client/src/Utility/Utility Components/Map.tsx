@@ -1,5 +1,5 @@
 import { CSSProperties, MemoExoticComponent } from "react"
-import { NoteProps } from "../../Pages/Note/Note.card"
+import { INoteCard } from "../../Pages/Note/Note.card"
 
 interface IMap {
     Element: | MemoExoticComponent<(props: any) => JSX.Element> | ( ({}:any ) => JSX.Element ),

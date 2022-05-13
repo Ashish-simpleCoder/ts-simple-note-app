@@ -15,13 +15,13 @@ import Clr from "./Clr.icon";
 const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Overlay menu' */))
 
 
-export type NoteProps = {
+export interface INoteCard {
     note: INote,
     styles?: CSSProperties,
     mode?: | 'note-page' | 'recycle-page'
 }
 
-const NoteCard = memo((props: NoteProps)=>{
+const NoteCard = memo((props: INoteCard)=>{
     const {note, styles, mode = 'note-page'} = props
     const {color_menu, dispatch} = useColorMenu()
 
@@ -57,7 +57,7 @@ const NoteCard = memo((props: NoteProps)=>{
                 <Para cn='note-body'>{note.body}</Para>
             </Wrapper>
 
-            <If condition={isLargerThan750 && isOverlayMenuVisibile}>
+            <If condition={!isLargerThan750 || isOverlayMenuVisibile}>
                 <WithSuspense Comp={() =>(
                     <OverlayMenu cn={`note-overlay ${mode == 'recycle-page' ? 'recycle-overlay' : ""}`}>
                         <If condition={mode == 'note-page'}>

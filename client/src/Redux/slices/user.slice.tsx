@@ -13,6 +13,7 @@ const userSlice  = createSlice({
         },
         setLogout: (state) => {
             state.email = ''
+            state.notes = Array()
         },
         createNote: (state, action) => {
             state.notes = [action.payload, ...state.notes]

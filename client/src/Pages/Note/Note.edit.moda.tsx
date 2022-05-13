@@ -19,23 +19,23 @@ const EditModal = memo(({children, mode, bg, noteToBeEdited}:{
     const {theme, dispatch} = useTheme()
     const {color_menu} = useColorMenu()
 
-    const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const {top, left} = e.currentTarget.getBoundingClientRect()
-        dispatch(setColorMenu({
-            enable: !color_menu.enable,
-            item: {_id: noteToBeEdited._id, bg: noteToBeEdited.bg!},
-            position:{top:top+20+'px', left:left+20+'px'}
-        }))
-    }, [])
+    // const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    //     const {top, left} = e.currentTarget.getBoundingClientRect()
+    //     dispatch(setColorMenu({
+    //         enable: !color_menu.enable,
+    //         item: {_id: noteToBeEdited._id, bg: noteToBeEdited.bg!},
+    //         position:{top:top+20+'px', left:left+20+'px'}
+    //     }))
+    // }, [])
 
     return(
         <WithModalWrapper>
             <StyledEditModal mode={mode} id='modal' className="edit-modal" style={{background: theme ? bg[1] : bg[0], border:'var(--border)'}}>
                 {children}
-                <OverlayMenu cn={`note-overlay`}>
+                {/* <OverlayMenu cn={`note-overlay`}>
                         <Button style={{backgroundColor: 'transparent'}} onClick={toggleColorMenu}><Clr /></Button>
                         <Button mode='delete_note_btn' cn='note-delete-btn'>delete</Button>
-                    </OverlayMenu>
+                    </OverlayMenu> */}
             </StyledEditModal>
         </WithModalWrapper>
     )
