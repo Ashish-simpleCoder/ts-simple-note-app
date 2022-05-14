@@ -1,4 +1,4 @@
-import { lazy, memo  } from "react"
+import { lazy, memo, useEffect  } from "react"
 import useColorMenu from "../../Redux/hooks/useColorMenu"
 import useUser from "../../Redux/hooks/useUser"
 import { clearColorMenu, setColorMenu } from "../../Redux/slices/color.menu.slice"
@@ -25,6 +25,13 @@ const Note = () => {
         handler: () => dispatch(clearColorMenu()),
         run: color_menu.enable
     })
+
+    useEffect(() => {
+        document.querySelector('header')!.style.borderBottom = '1px solid var(--border)';
+        return () => {
+            document.querySelector('header')!.style.borderBottom = '0px'
+        }
+    }, [])
 
 
     return(

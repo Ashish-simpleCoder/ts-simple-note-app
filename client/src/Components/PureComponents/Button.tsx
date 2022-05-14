@@ -1,5 +1,5 @@
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
-import { CSSProperties, memo, MouseEvent, ReactNode } from "react"
+import { CSSProperties, memo, ReactNode } from "react"
 import styled, { css } from "styled-components"
 import If from "../../Utility/Utility Components/If"
 import Loader from "../Journal Components/Loader"
@@ -24,13 +24,10 @@ interface PropType {
 const Button = (props: PropType) => {
     const {children, cn, onClick, mode, isDisabled, loader, style} = props
 
-    // if(loader){
-    //     return <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled}><Loader /></StyledButton>
-    // }
+
     return(
         <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled} style={style}>
             <If condition={loader}> <Loader /> </If>
-
             <If condition={!loader}> {children} </If>
         </StyledButton>
     )
@@ -40,10 +37,10 @@ export default memo(Button)
 
 
 const StyledButton = styled.button<{mode?: BtnMode}>`
-    font-size: clamp(1.6rem, 1.6rem, 1.6vw);
     text-decoration: none;
     padding: clamp(0.3rem, 0.4rem, 0.4vw) clamp(0.7rem, 0.9rem, 0.9vw);
-    height: clamp(3.5rem, 4rem, 4vw);
+    display: grid;
+    place-items: center;
 
     :disabled{
         background-color: #424242;

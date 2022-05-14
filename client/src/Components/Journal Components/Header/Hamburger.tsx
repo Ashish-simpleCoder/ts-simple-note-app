@@ -11,7 +11,7 @@ const Hamburger = memo(({onClick} : {onClick :()=>void}) => {
         </StyledHamburger>
     )
 })
-export default Hamburger
+export default memo(Hamburger)
 
 
 const StyledHamburger = styled.div`

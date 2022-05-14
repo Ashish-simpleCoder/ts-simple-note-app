@@ -1,3 +1,4 @@
+import { memo } from "react"
 import styled from "styled-components"
 
 
@@ -13,7 +14,7 @@ const Loader = (props: LoaderProps) => {
       </StyledLoader>
    )
 }
-export default Loader
+export default memo(Loader)
 
 const StyledLoader = styled.div<{px?: number, py?: number, w?: number, h?: string}>`
    height:100%;

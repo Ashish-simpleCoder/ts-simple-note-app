@@ -1,7 +1,6 @@
 @import "./theme";
 
 *{
-    // font-family: System-Ui;
     box-sizing: border-box;
     color: var(--clr);
     letter-spacing: 0.08rem;
@@ -90,4 +89,8 @@ input{
 
 li, input, label{
     color: var(--input-clr);
+}
+
+li, input, label, button, a, p {
+    font-size: 1.6rem;
 }

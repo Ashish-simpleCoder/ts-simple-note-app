@@ -22,7 +22,7 @@ const StyledFormGroup = styled.div`
     display:flex;
     align-items:center;
     width:100%;
-    height: clamp(4rem ,4.5rem, 4.5vw);
+    height: clamp(3.5rem ,3.8rem, 3.8vw);
     position:relative;
     margin-top:6rem;
     background-color: var(--form-group-bg);
@@ -45,9 +45,8 @@ const StyledFormGroup = styled.div`
     div.svg-container{
         height: 100%;
         width: 4rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        place-items: center;
     }
 
     label{

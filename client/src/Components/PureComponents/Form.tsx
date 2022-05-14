@@ -3,16 +3,17 @@ import styled, { css, CSSProperties } from 'styled-components'
 
 
 
-const Form = memo(({children, mode, onSubmit, styles, animate}:{
-    children:ReactNode, no_bg?:boolean, mode?: FormMode, onSubmit?: ((e: FormEvent<HTMLFormElement>) => Promise<void>) | undefined
+const Form = memo((props:{
+    children:ReactNode,
+    mode?: FormMode,
+    onSubmit?: ((e: FormEvent<HTMLFormElement>) => Promise<void>) | undefined
     styles?:CSSProperties,
     animate?: true | false,
 })=>{
+    const {children, mode, onSubmit, styles, animate} = props
 
     return(
-        <StyledForm onSubmit={(e)=>{
-                onSubmit && onSubmit(e)
-            }}
+        <StyledForm onSubmit={onSubmit && onSubmit}
             style={styles}
             mode={mode}   //for margin-top
             animate={animate}
@@ -21,7 +22,7 @@ const Form = memo(({children, mode, onSubmit, styles, animate}:{
         </StyledForm>
     )
 })
-export default Form
+export default memo(Form)
 
 
 

@@ -10,5 +10,5 @@ const AnchorLink = memo(({text, path, styles, children} : AnchorProps)=>{
         {children && children}
     </Link>
 })
-export default AnchorLink
+export default memo(AnchorLink)
 

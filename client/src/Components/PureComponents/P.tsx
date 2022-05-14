@@ -7,5 +7,6 @@ const Para = ({children, cn}: {children?: ReactNode, cn?: string}) => {
 export default Para
 
 const StyledP = styled.p`
-    font-size: 1.3rem;
+    margin: 0;
+    font-weight: 500;
 `

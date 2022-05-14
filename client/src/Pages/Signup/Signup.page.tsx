@@ -96,6 +96,7 @@ const Signup = () => {
                     <FormLabel text='email'></FormLabel>
                     <EmailSvg />
                     <Input {...addNewState({state: 'email', name: 'email', type: 'email'})}/>
+                    <div className="utility focus-border"></div>
                     <div className="invalid"></div>
                 </FormGroup>
 
@@ -106,6 +107,7 @@ const Signup = () => {
                         <WithSuspense Comp={() => <MiniValidationBox validations={validations!} />} />
                     </If>
                     <Input {...addNewState({state: 'password', name: 'password', id: 'password', type: 'password'})} />
+                    <div className="utility focus-border"></div>
                 </FormGroup>
 
                 <If condition={errors.length != 0}>

@@ -32,12 +32,14 @@ const Login = () => {
                     <FormLabel text='email'></FormLabel>
                     <EmailSvg />
                     <Input {...addNewState({state: 'email', name: 'email', type: 'email'})} />
+                    <div className="utility focus-border"></div>
                     <div className="invalid"></div>
                 </FormGroup>
                 <FormGroup>
                     <FormLabel text='Password'></FormLabel>
                     <PasswordSvg />
                     <Input {...addNewState({state: 'password', name: 'password', type: 'password'})}/>
+                    <div className="utility focus-border"></div>
                 </FormGroup>
                 <If condition={error}>
                     <WithSuspense Comp={() => <ErrorBox error={error} />} />

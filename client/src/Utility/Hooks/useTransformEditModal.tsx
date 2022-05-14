@@ -41,7 +41,7 @@ const useTranformEditModal = ({note_id}: {note_id: string}) => {
             if(element_ref.current){
                 element_ref.current.style.opacity = '1'
             }
-            }, 300)
+            }, 250)
     }, [])
 
     useEffect(()=>{

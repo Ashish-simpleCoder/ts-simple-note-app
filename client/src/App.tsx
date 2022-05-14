@@ -21,5 +21,4 @@ const App = ({children}: {children?: JSX.Element | JSX.Element[]}) => {
         </>
     )
 }
-// export default memo(() => withRouter(() => withStore(App)))
 export default memo(() => withStore(() => withRouter(App)))

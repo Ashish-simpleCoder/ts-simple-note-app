@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
-import useUser from "../../Redux/hooks/useUser"
+import { useEffect, useMemo, useState } from "react"
+import { useDispatch } from "react-redux"
 import { setLogin } from "../../Redux/slices/user.slice"
 
 const useFetchUser = ({shouldCheckIfUserLogged = true}: {shouldCheckIfUserLogged: boolean}) => {
-    const {dispatch} = useUser()
+    const dispatch = useDispatch()
     const [shouldRedirectToLogin, setShouldRedirectToLogin] = useState(false)
-
 
 
     const controller = new AbortController()

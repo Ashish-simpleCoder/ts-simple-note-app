@@ -1,13 +1,7 @@
 import { useEffect, useRef } from "react"
 
-const useClickListener = ({eventName = 'click',eventName2 = 'keyup', element2 = window, handler, element = window, run,}:{
-    handler: any,
-    eventName?: 'click',
-    eventName2?: 'keyup',
-    element2?: Window,
-    element: Element | null | Window & typeof globalThis | Document,
-    run: boolean
-}) => {
+const useClickListener = (props: IListenerProps) => {
+    const {eventName = 'click',eventName2 = 'keyup', element2 = window, handler, element = window, run} = props
 
     const handlerRef = useRef(handler)
     useEffect(() => {
@@ -38,3 +32,16 @@ const useClickListener = ({eventName = 'click',eventName2 = 'keyup', element2 = 
 
 }
 export default useClickListener
+
+
+
+
+
+interface IListenerProps{
+    handler: any,
+    eventName?: 'click',
+    eventName2?: 'keyup',
+    element2?: Window,
+    element: Element | null | Window & typeof globalThis | Document,
+    run: boolean
+}

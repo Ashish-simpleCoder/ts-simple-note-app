@@ -27,7 +27,6 @@ const NoteOutputContainer = () => {
     const {theme} = useTheme()
     const {addNewState, setStates, states} = useForm()
 
-
     const [shouldEnableEditModal, setShouldEnableEditModal] = useState(false)
     const [noteToBeEdited, setNoteToBeEdited] = useState<INote>({_id:'',bg: [''], title: '', body: '',delete: false})
 
@@ -37,9 +36,16 @@ const NoteOutputContainer = () => {
         return note.title.trim().toLowerCase().includes(search.toLowerCase()) || note.body.trim().toLowerCase().includes(search.toLowerCase())
     },[search])
 
-
+    const noteUpdateHandler = useNoteUpdateHandler( setNoteToBeEdited )
     const enableNoteEditModalHandler = useModalEnableHandler(setShouldEnableEditModal, setNoteToBeEdited)
+    const deleteNoteBtnClickHandler = useDeleteBtnHandler(setShouldEnableEditModal)
+
+
     useNoteClickListener({element: document.querySelector('.notes-output-section'), handler: enableNoteEditModalHandler, run: user.notes?.length != 0})
+    useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
+    useNoteClickListener({run: user.notes?.length != 0 , handler: deleteNoteBtnClickHandler, element: document.querySelector('.notes-output-section')})
+
+
     useTranformEditModal({note_id: noteToBeEdited._id })
 
     useEffect(() => {
@@ -56,7 +62,7 @@ const NoteOutputContainer = () => {
         }
 
         if(!noteToBeEdited._id){
-            const modal_transition_time = 400
+            const modal_transition_time = 300
             timer = setTimeout(() => setShouldEnableEditModal(false), modal_transition_time)
         }
 
@@ -64,20 +70,11 @@ const NoteOutputContainer = () => {
     }, [noteToBeEdited, shouldEnableEditModal, user.notes])
 
 
-
-    const noteUpdateHandler = useNoteUpdateHandler( setNoteToBeEdited )
-    useClickListener({ element: document, handler: () => noteUpdateHandler(noteToBeEdited) , run: !!noteToBeEdited._id })
-
-
     // for syncing the NoteToBeEdited with states values
     // because i also want the _id, bg  attributes of the note
     useEffect(() => {
         setNoteToBeEdited(v => ({...v, ...states}))
     }, [states])
-
-
-    const deleteNoteBtnClickHandler = useDeleteBtnHandler(setShouldEnableEditModal)
-    useNoteClickListener({run: user.notes?.length != 0 , handler: deleteNoteBtnClickHandler, element: document.querySelector('.notes-output-section')})
 
 
 

@@ -162,4 +162,8 @@ input {
 li, input, label {
   color: var(--input-clr);
 }
+
+li, input, label, button, a, p {
+  font-size: 1.6rem;
+}
 /*# sourceMappingURL=style.css.map */

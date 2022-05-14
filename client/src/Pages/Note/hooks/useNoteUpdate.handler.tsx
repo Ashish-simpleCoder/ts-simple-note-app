@@ -11,7 +11,8 @@ const useNoteUpdateHandler = ( setNoteToBeEdited: Dispatch<SetStateAction<INote>
     const handler = useCallback(async( updated_note: Record<any, any> ) => {
         const isUpdated = await handleUpdateNote(updated_note)
         if(isUpdated) {
-            setNoteToBeEdited(({ _id: '', title: '', body: '', bg: [''], delete: false}))
+            setNoteToBeEdited((v) => ({...v, _id: ''}))
+            setTimeout(() => setNoteToBeEdited(({ _id: '', title: '', body: '', bg: [''], delete: false})), 500)
             dispatch(updateNote(updated_note))
         }
     }, [])

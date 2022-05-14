@@ -67,9 +67,16 @@ const StyledEditModal = styled.form<{mode?:string}>`
                         background-color: inherit;
                     }
                 }
+                input{
+                    text-align: center;
+                    /* font-weight: 600 !important; */
+                    color: var(--clr);
+                    border-bottom: 1px solid var(--border);
+                }
                 textarea{
                     flex: 1;
                     resize: none;
+                    font-weight: 500;
                 }
                 flex-direction:column;
                 position:absolute;

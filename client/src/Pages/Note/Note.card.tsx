@@ -23,10 +23,9 @@ export interface INoteCard {
 
 const NoteCard = memo((props: INoteCard)=>{
     const {note, styles, mode = 'note-page'} = props
+
     const {color_menu, dispatch} = useColorMenu()
-
     const [isLargerThan750] = useMediaQuery({width: 750})
-
     const [isOverlayMenuVisibile, setIsOverlayMenuVisibile] = useState(false)
 
 
@@ -67,21 +66,6 @@ const NoteCard = memo((props: INoteCard)=>{
                     </OverlayMenu>)
                 }/>
             </If>
-
-
-            {/* if want to reuse then define note and recycle pages behaviour  */}
-            {/* <OverlayMenu cls={mode === 'recycle.page' ? 'bin-note-menu' : ''}>
-                <If condition={mode === 'note.page'}>
-                    <ActionLink handleClick={(e:MouseEvent<HTMLDivElement>)=>{setNoteClrMenuPosition!(e, note)}}>
-                        <Clr/>
-                    </ActionLink>
-                    <Button  mode='delete_note_btn' onClick={()=>handleDeleteNote({_id:note._id})} loader={loader}/>
-                 </If>
-                 <If condition={mode === 'recycle.page'}>
-                    <Button  mode='restore_btn' handleClick={()=>handleDeleteNote({_id : note._id, MOVE_TO_BIN:false, RESTORE:true})} loader={loader} text={'restore'}/>
-                    <Button  mode='delete_note_btn' onClick={()=>handleDeleteNote({_id:note._id, MOVE_TO_BIN:false, RESTORE:false})} loader={loader}/>
-                 </If>
-            </OverlayMenu> */}
         </StyledNote>
     )
 })
@@ -93,27 +77,21 @@ const StyledNote = styled.div`
     position:relative;
     width: 100%;
     height:20rem;
+    box-shadow:0 0.2rem 0.2rem rgba(0,0,0,0.2);
+    border-radius:0 0.5rem 0.5rem 0;
+    display:flex;
+    --direction: column;
+    flex-direction: var(--direction);
+    --note-menu-opacity:0;
+    /* animation:animate_note calc(0.3s  * var(--note-order)) ease-in; */
 
     @media (min-width:700px){
         max-width:40rem;
     }
 
-    box-shadow:0 0.2rem 0.2rem rgba(0,0,0,0.2);
-
-    border-radius:0 0.5rem 0.5rem 0;
-    /* border:var(--note-border); */
-    background: var(--note-bg);
-
-    display:flex;
-    --direction: column;
-    flex-direction: var(--direction);
-    /* animation:animate_note calc(0.3s  * var(--note-order)) ease-in; */
-
-    --note-menu-opacity:0;
-
 
     p{
-        opacity:0.8;
+        opacity:0.9;
         white-space:pre-line;
         word-break:break-all;
         width:100%;
@@ -150,10 +128,6 @@ const StyledNote = styled.div`
     @media (min-width:700px){
         --note-menu-opacity:0;
         transition:all 0.3s;
-        &:hover{
-            box-shadow:var(--note-hover-shadow);
-            transform:translateY(-1rem);
-        }
 
         div.overlay-menu {
             height:4rem;

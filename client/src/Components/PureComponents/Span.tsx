@@ -4,11 +4,10 @@ import styled, { css } from "styled-components"
 const Span = ({children, style, cn, bg}: SpanPropType) => {
     const bg_clr = bg ? `#${Math.random().toString(16).slice(2,8)}` : ''
 
-    return(
-        <StyledSpan style={style} className={cn} bg_clr={bg_clr} >{children}</StyledSpan>
-    )
+    return <StyledSpan style={style} className={cn} bg_clr={bg_clr} >{children}</StyledSpan>
 }
 export default memo(Span)
+
 
 interface SpanPropType {
     children?: ReactNode

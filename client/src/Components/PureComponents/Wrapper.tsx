@@ -23,7 +23,7 @@ const Wrapper = memo((props : WrapperProps)=>{
         </StyledWrapper>
     )
 })
-export default Wrapper
+export default memo(Wrapper)
 
 
 

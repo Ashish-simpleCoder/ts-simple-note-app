@@ -1,4 +1,5 @@
-import { lazy, memo, useCallback, useState } from "react"
+import { lazy, memo, useCallback, useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 import useUser from "../../../Redux/hooks/useUser"
 import useClickListener from "../../../Utility/Hooks/useClickListener"
@@ -18,26 +19,30 @@ const SearchBar = lazy(() => import('../SearchBar' /* webpackChunkName: 'SearchB
 
 
 const Header = () => {
-    const [isLargerThan800] = useMediaQuery({width: 800})
-
     const [showNav, setShowNav] = useState(false)
     const toggleNav = useCallback(() => setShowNav(v => !v), [])
+    const location = useLocation()
+    const [shouldDisplaySearchBar, setShouldDisplaySearchBar] = useState(false)
 
+    const [isLargerThan800] = useMediaQuery({width: 800})
+    const {user} = useUser()
+
+    const hasTransitionedIn = useMountTransition({isMounted: showNav, unmountDelay: 500})
 
     useClickListener({element: document, handler: () => {
         setShowNav(false)
     }, eventName: 'click', run: showNav} )
 
-    const hasTransitionedIn = useMountTransition({isMounted: showNav, unmountDelay: 500})
 
-    const {user} = useUser()
-
+    useEffect(() => {
+        setShouldDisplaySearchBar(location.pathname.includes('note'))
+    }, [location])
 
 
     return(
         <StyledHeader className="px">
             <HeaderLogo/>
-            <If condition={user.notes?.length != 0}>
+            <If condition={shouldDisplaySearchBar && user.notes?.length != 0}>
                 <WithSuspense Comp={() => <SearchBar />}></WithSuspense>
             </If>
             <If condition={isLargerThan800}>
@@ -59,6 +64,7 @@ export default memo(Header)
 const StyledHeader = styled.header`
     display: flex;
     align-items: center;
+    background-color: var(--body-bg);
 
     @media (min-width:700px){
         position:sticky;
@@ -70,7 +76,4 @@ const StyledHeader = styled.header`
         --opacity: 1;
         --transform-x: 0;
     }
-
-
-
 `

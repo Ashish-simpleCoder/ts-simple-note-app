@@ -45,7 +45,7 @@ const Nav = () => {
 
             <If condition={states.user.email}>
                 <AnchorLink path="/note">Note</AnchorLink>
-                <Button cn='red' onClick={handleLogout}>Logout</Button>
+                <Button cn='red' onClick={handleLogout} style={{borderRadius:'0.5rem'}}>Logout</Button>
             </If>
 
             <Button cn='svg theme-toggle-btn' onClick={() => dispatch(TOGGLE_THEME())}><ToggleThemeIcon/></Button>

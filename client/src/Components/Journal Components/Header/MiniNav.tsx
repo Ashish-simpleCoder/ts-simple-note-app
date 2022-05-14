@@ -1,4 +1,4 @@
-import { lazy, useEffect, useRef, useState } from "react"
+import { lazy, memo, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import If from "../../../Utility/Utility Components/If"
 import withModalWrapper from "../../../Utility/Utility Components/withModalWrapper"
@@ -43,7 +43,7 @@ const MiniNav = ({showNav, cn}: {showNav: boolean, cn?: string}) => {
     //     </StyledMiniNav>
     // )
 }
-export default MiniNav
+export default memo(MiniNav)
 
 
 

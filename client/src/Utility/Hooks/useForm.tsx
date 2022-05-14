@@ -2,9 +2,8 @@ import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useEffec
 import Form from '../../Components/PureComponents/Form'
 import FormGroup from "../../Components/Journal Components/FormGroup/Form.group"
 import FormLabel from "../../Components/Journal Components/FormGroup/Form.label"
-import {ILoginRes} from '../../../../type'
-import useUser from "../../Redux/hooks/useUser"
 import { setLogin } from "../../Redux/slices/user.slice"
+import { useDispatch } from "react-redux"
 
 
 const useForm = () =>{
@@ -14,14 +13,14 @@ const useForm = () =>{
     const [error, setError] = useState('')
     const [disabled, setDisabled] = useState(false)
     const [controller] = useState(new AbortController())
-    const { dispatch } = useUser()
+    const dispatch = useDispatch()
+
 
 
     const handleSubmit = useCallback( async(e: FormEvent<HTMLFormElement>, url: RequestInfo, setIsDisabled: Dispatch<SetStateAction<boolean>>) => {
         e.preventDefault()
         try{
             setIsDisabled(true)
-            setLoading(true)
             setLoading(true)
 
             const res = await fetch(url,{
@@ -32,7 +31,7 @@ const useForm = () =>{
                 headers: { 'Content-Type': 'application/json' }
             })
             const data = await res.json()
-            console.log(data)
+            // console.log(data)
 
 
             // if login and registration is success
@@ -47,7 +46,6 @@ const useForm = () =>{
             setErrors(Array(err))
 
         }finally{
-            setLoading(false)
             setIsDisabled(false)
             setLoading(false)
 

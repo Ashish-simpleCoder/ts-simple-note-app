@@ -18,7 +18,10 @@ const MiniValidationBox = ({validations}: {validations: {
 
     return(
         <StyledMiniValidationBox>
-            <Button onClick={() => setShow(v => !v)}>i</Button>
+            <Button onClick={(e:any) => {
+                e.preventDefault()
+                setShow(v => !v)
+            }}>i</Button>
             <If condition={show}>
                 <WithSuspense Comp={() => <ValidationBox validations={validations!}/>} />
             </If>
