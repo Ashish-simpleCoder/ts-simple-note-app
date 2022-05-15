@@ -17,6 +17,7 @@ import useDeleteBtnHandler from "./hooks/useDeleteBtn.handler"
 import useNoteUpdateHandler from "./hooks/useNoteUpdate.handler"
 import useModalEnableHandler from "./hooks/useModalEnable.handler"
 import { INote } from "../../Inote"
+import removeWhiteSpaces from "../../Utility/Utility Functions/removeWhiteSpaces"
 
 
 const NoteOutputContainer = () => {
@@ -33,7 +34,8 @@ const NoteOutputContainer = () => {
 
     const isInSearchResult = useCallback((note : INote) =>{
         if(search == undefined) return true
-        return note.title.trim().toLowerCase().includes(search.toLowerCase()) || note.body.trim().toLowerCase().includes(search.toLowerCase())
+        const search_key = removeWhiteSpaces(search)
+        return note.title.trim().toLowerCase().includes(search_key.toLowerCase()) || note.body.trim().toLowerCase().includes(search_key.toLowerCase())
     },[search])
 
     const noteUpdateHandler = useNoteUpdateHandler( setNoteToBeEdited )

@@ -13,6 +13,7 @@ import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery";
 import If from "../../Utility/Utility Components/If";
 import WithSuspense from "../../Utility/Utility Components/WithSuspense";
+import removeWhiteSpaces from "../../Utility/Utility Functions/removeWhiteSpaces";
 import Clr from "./Clr.icon";
 const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Overlay menu' */))
 
@@ -52,9 +53,10 @@ const NoteCard = memo((props: INoteCard)=>{
     useEffect(() => {
         if(search != undefined && props.isVisible){
             setIsVisible(true)
+            const search_key = removeWhiteSpaces(search)
             const obj = {
-                title: `${note.title.replace(search, `<mark style="color: black">${search}</mark>`)}`,
-                body: `${note.body.replace(search, `<mark style="color: black;">${search}</mark>`)}`
+                title: `${note.title.replace(search_key, `<mark style="color: black">${search_key}</mark>`)}`,
+                body: `${note.body.replace(search_key, `<mark style="color: black;">${search_key}</mark>`)}`
             }
             setMarkedNote(obj)
         }else{
