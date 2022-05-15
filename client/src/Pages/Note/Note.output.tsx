@@ -81,7 +81,16 @@ const NoteOutputContainer = () => {
     return(
         <Wrapper mode='notes-output-section'>
             {
-                user.notes?.map(n => <NoteCard note={n} key={n._id} styles={{display: isInSearchResult(n) ? 'flex' : 'none', backgroundColor: theme ? n.bg[1] : n.bg[0]}}/>)
+                user.notes?.map(n => {
+                    return(
+                        <NoteCard
+                            note={n}
+                            key={n._id}
+                            styles={{display: isInSearchResult(n) ? 'flex' : 'none', backgroundColor: theme ? n.bg[1] : n.bg[0]}}
+                            isVisible={isInSearchResult(n)}
+                        />
+                    )
+                })
             }
             <If condition={shouldEnableEditModal}>
                 <EditModal mode="edit_note" bg={noteToBeEdited.bg} noteToBeEdited={noteToBeEdited}>

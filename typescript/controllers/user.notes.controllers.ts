@@ -16,8 +16,11 @@ import USER_MODEL, { UserType } from "../schemas/user.schema"
 export const createOneNote = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     const logged_user:any = returnLoggedUser(req, res, next)
     const user:UserType = await USER_MODEL.findById(logged_user._id)
+
     if(!user) return next({status:400,error:'unauthorised user'})
+
     if(!req.body.title && !req.body.body) return next({error:'notes can not be blanked', mode:'note'})
+
     user.notes.push(req.body)
     const new_note = await user.save().then((user: UserType) => {
        return user.notes[user.notes.length-1]
@@ -31,10 +34,15 @@ export const createOneNote = asyncWrapper(async(req:Request, res:Response, next:
 export const getNotes = asyncWrapper(async(req:Request,res:Response,next:NextFunction)=>{
     const payload:any = returnLoggedUser(req,res,next)
     const user:UserType = await USER_MODEL.findById(payload._id).select('notes').select('_id')
+
     if(!user) return next({status:400,error:'unauthorized user'})
+
     if(!user.notes) return next({error:'no notes found'})
+
     return res.status(200).send({notes:user.notes.filter(n => !n.delete).reverse()})
 })
+
+
 // if user wants to get only one note.
 export const getOneNote = asyncWrapper(async(req:Request,res:Response,next:NextFunction)=>{
     const payload:any = returnLoggedUser(req,res,next)
@@ -62,7 +70,6 @@ export const deleteOneNote = asyncWrapper(async(req:Request, res:Response, next:
     const note_id = req.params.note_id
 
     if(req.body.RESTORE){
-        console.log('restore')
         const {matchedCount} = await USER_MODEL.updateOne({_id:payload._id,'notes._id':note_id},{$set:{'notes.$.delete':false}})
         if(matchedCount) return res.send({success:true})
         if(!matchedCount) return next({status:404, error:'no note found with this id'})

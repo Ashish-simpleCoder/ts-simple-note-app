@@ -1,4 +1,5 @@
-import { CSSProperties, lazy, memo, MouseEvent, useCallback, useState } from "react";
+import parse from "html-react-parser";
+import { CSSProperties, lazy, memo, MouseEvent, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../Components/PureComponents/Button";
 import H4 from "../../Components/PureComponents/Heading/H4";
@@ -7,6 +8,7 @@ import Span from "../../Components/PureComponents/Span";
 import Wrapper from "../../Components/PureComponents/Wrapper";
 import { INote } from "../../Inote";
 import useColorMenu from "../../Redux/hooks/useColorMenu";
+import useSearch from "../../Redux/hooks/useSearch";
 import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery";
 import If from "../../Utility/Utility Components/If";
@@ -18,7 +20,8 @@ const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Ove
 export interface INoteCard {
     note: INote,
     styles?: CSSProperties,
-    mode?: | 'note-page' | 'recycle-page'
+    mode?: | 'note-page' | 'recycle-page',
+    isVisible?: boolean
 }
 
 const NoteCard = memo((props: INoteCard)=>{
@@ -42,6 +45,24 @@ const NoteCard = memo((props: INoteCard)=>{
         }))
     }, [])
 
+    const [marked_note, setMarkedNote] = useState({title: '', body: ''})
+    const {search} = useSearch()
+    const [isVisible, setIsVisible] = useState(props.isVisible && search != undefined)
+
+    useEffect(() => {
+        if(search != undefined && props.isVisible){
+            setIsVisible(true)
+            const obj = {
+                title: `${note.title.replace(search, `<mark style="color: black">${search}</mark>`)}`,
+                body: `${note.body.replace(search, `<mark style="color: black;">${search}</mark>`)}`
+            }
+            setMarkedNote(obj)
+        }else{
+            setMarkedNote({title: '', body: ''})
+            setIsVisible(false)
+        }
+    }, [props.isVisible, search])
+
 
 
     return(
@@ -49,11 +70,25 @@ const NoteCard = memo((props: INoteCard)=>{
 
             <Wrapper styles={{padding: '0.5rem 1rem',borderBottom:'1px solid var(--border)'}} >
                 <Span cn='random-span' bg={true}/>
-                <H4 styles={{width:'100%',margin: 0,textAlign:'center'}} cn='note-title'>{note.title}</H4>
+                <H4 styles={{width:'100%',margin: 0,textAlign:'center'}} cn='note-title' >
+                    <If condition={!isVisible}>
+                        {note.title}
+                    </If>
+                    <If condition={isVisible}>
+                        {parse(marked_note.title)}
+                    </If>
+                </H4>
             </Wrapper>
 
             <Wrapper styles={{overflow:'hidden',flex:'1', padding:'0.5rem 1rem'}}>
-                <Para cn='note-body'>{note.body}</Para>
+                <Para cn='note-body' >
+                    <If condition={!isVisible}>
+                        {note.body}
+                    </If>
+                    <If condition={isVisible}>
+                        {parse(marked_note.body)}
+                    </If>
+                </Para>
             </Wrapper>
 
             <If condition={!isLargerThan750 || isOverlayMenuVisibile}>
