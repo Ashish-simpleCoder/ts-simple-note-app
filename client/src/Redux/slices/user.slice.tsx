@@ -22,7 +22,6 @@ const userSlice  = createSlice({
             state.notes = action.payload
         },
         changeNoteColor : (state, action) => {
-            console.log(action)
             state.notes = state.notes.map(note => {
                 if(note._id == action.payload._id){
                     const new_note = {...note, bg: action.payload.bg}
