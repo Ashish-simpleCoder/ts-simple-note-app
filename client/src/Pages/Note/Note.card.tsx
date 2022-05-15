@@ -53,10 +53,10 @@ const NoteCard = memo((props: INoteCard)=>{
     useEffect(() => {
         if(search != undefined && props.isVisible){
             setIsVisible(true)
-            const search_key = removeWhiteSpaces(search)
+            // const search_key = removeWhiteSpaces(search)
             const obj = {
-                title: `${note.title.replace(search_key, `<mark style="color: black">${search_key}</mark>`)}`,
-                body: `${note.body.replace(search_key, `<mark style="color: black;">${search_key}</mark>`)}`
+                title: `${note.title.replace(search, `<mark style="color: black">${search}</mark>`)}`,
+                body: `${note.body.replace(search, `<mark style="color: black;">${search}</mark>`)}`
             }
             setMarkedNote(obj)
         }else{

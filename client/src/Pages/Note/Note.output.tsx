@@ -34,8 +34,8 @@ const NoteOutputContainer = () => {
 
     const isInSearchResult = useCallback((note : INote) =>{
         if(search == undefined) return true
-        const search_key = removeWhiteSpaces(search)
-        return note.title.trim().toLowerCase().includes(search_key.toLowerCase()) || note.body.trim().toLowerCase().includes(search_key.toLowerCase())
+        // const search_key = removeWhiteSpaces(search)
+        return note.title.trim().toLowerCase().includes(search.toLowerCase()) || note.body.trim().toLowerCase().includes(search.toLowerCase())
     },[search])
 
     const noteUpdateHandler = useNoteUpdateHandler( setNoteToBeEdited )
