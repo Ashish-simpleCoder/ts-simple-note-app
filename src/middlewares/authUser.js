@@ -39,7 +39,7 @@ const returnLoggedUser = (req, res, next) => {
     return user;
 };
 exports.returnLoggedUser = returnLoggedUser;
-const returnLoggedUserDetails = (req, res, next) => {
+const returnLoggedUserDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const cookie_name = process.env.COOKIE_NAME || 'cookie_name';
     const secret = process.env.SECRET || 'yoursecretkey';
     const cookie = req.cookies[cookie_name];
@@ -50,5 +50,5 @@ const returnLoggedUserDetails = (req, res, next) => {
         user = decoded_token === null || decoded_token === void 0 ? void 0 : decoded_token.payload;
     });
     return res.send(user);
-};
+});
 exports.returnLoggedUserDetails = returnLoggedUserDetails;

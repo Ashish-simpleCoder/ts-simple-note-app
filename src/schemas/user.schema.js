@@ -25,12 +25,12 @@ const USER_SCHEMA = new mongoose_1.Schema({
     password: {
         type: String,
         required: [true, 'password is required'],
-        minlength: [4, 'password length must be greater than 4 characters']
+        minlength: [6, 'password length must be greater than 4 characters']
     },
     notes: [
         {
             title: { type: String },
-            content: { type: String },
+            body: { type: String },
             delete: { type: Boolean, default: false },
             bg: {
                 type: {},

@@ -13,28 +13,31 @@ const errHandler = (err, req, res, next) => __awaiter(void 0, void 0, void 0, fu
     var _a;
     const errors = { email: '', password: '', err: '' };
     const { email, password, status, error, mode } = err;
-    if (email || password) {
-        email && (errors.email = err.email);
-        password && (errors.password = err.password);
-        return res.status(status ? status : 200).send({ errors });
+    if (email) {
+        return res.status(status ? status : 200).send({ error: email });
+    }
+    if (password) {
+        return res.status(status ? status : 200).send({ error: password });
     }
     if (error) {
         if (mode === 'note') {
             return res.status(status ? status : 200).send({ error });
         }
-        errors.err = error;
-        return res.status(status ? status : 200).send({ errors });
+        return res.status(status ? status : 200).send({ error });
     }
+    const errors_arr = [];
     if (err.code === 11000) {
-        errors.email = 'email is already registered';
-        return res.status(500).send({ errors });
+        const email_err = 'email is already registered';
+        errors_arr.push(email_err);
+        return res.status(500).send({ errors: errors_arr });
     }
     if ((_a = err === null || err === void 0 ? void 0 : err.message) === null || _a === void 0 ? void 0 : _a.includes('validation failed')) {
         Object.values(err.errors).forEach((value) => {
             const { path, message } = value === null || value === void 0 ? void 0 : value.properties;
             errors[path] = message;
+            errors_arr.push(message);
         });
-        return res.status(500).send({ errors });
+        return res.status(500).send({ errors: errors_arr });
     }
 });
 exports.default = errHandler;

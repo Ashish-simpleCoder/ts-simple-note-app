@@ -23,12 +23,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)();
-const { MONGO, PORT, MODE } = process.env;
 const mongoose_1 = require("mongoose");
 const express_1 = __importStar(require("express"));
 const router_1 = __importDefault(require("./routers/router"));
 const errHandler_1 = __importDefault(require("./middlewares/errHandler"));
+const cors_1 = __importDefault(require("cors"));
+(0, dotenv_1.config)();
+const { MONGO, PORT, MODE } = process.env;
 const { json } = express_1.default;
 const app = (0, express_1.default)();
 if (MODE === 'prod') {
@@ -36,9 +37,17 @@ if (MODE === 'prod') {
     app.use(express_1.default.static(join(__dirname, '../', 'client/build')));
     (0, mongoose_1.connect)(MONGO || 'mongodb://localhost:27017/your_db').then(() => console.log('db ok')).catch(() => console.log('failed db'));
 }
+else {
+    (0, mongoose_1.connect)('mongodb://localhost:27017/ts-mern-note').then(() => console.log('db ok')).catch(() => console.log('failed db'));
+}
+app.use((0, cors_1.default)({
+    origin: ['http://localhost:3000', 'https://ts-simple-note-app.herokuapp.com', 'https://ashish-simplecoder.github.io'],
+    credentials: true,
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT']
+}));
 app.use(json());
 app.use((0, express_1.urlencoded)({ extended: true }));
-app.use(require('cookie-parser'));
+app.use(require('cookie-parser')());
 app.use(router_1.default);
 app.use(errHandler_1.default);
 app.listen(PORT || 5001);
