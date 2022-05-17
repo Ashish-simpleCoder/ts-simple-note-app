@@ -24,7 +24,7 @@ if(MODE === 'prod'){
 }
 
 app.use(cors({
-    origin:['http://localhost:3000', 'https://ts-simple-note-app.herokuapp.com', 'https://ashish-simplecoder.github.io' ],
+    origin:['http://localhost:3000', 'https://ts-simple-note.herokuapp.com', 'https://ashish-simplecoder.github.io' ],
     credentials:true,
     methods:['GET','POST','DELETE', 'PATCH', 'PUT']
 }))

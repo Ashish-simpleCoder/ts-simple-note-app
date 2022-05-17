@@ -41,7 +41,7 @@ else {
     (0, mongoose_1.connect)('mongodb://localhost:27017/ts-mern-note').then(() => console.log('db ok')).catch(() => console.log('failed db'));
 }
 app.use((0, cors_1.default)({
-    origin: ['http://localhost:3000', 'https://ts-simple-note-app.herokuapp.com', 'https://ashish-simplecoder.github.io'],
+    origin: ['http://localhost:3000', 'https://ts-simple-note.herokuapp.com', 'https://ashish-simplecoder.github.io'],
     credentials: true,
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT']
 }));
