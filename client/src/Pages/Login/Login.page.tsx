@@ -1,4 +1,4 @@
-import {memo, useMemo, FormEvent, lazy } from 'react'
+import {memo, useMemo, FormEvent, lazy, useEffect } from 'react'
 import Button from '../../Components/PureComponents/Button'
 import H3 from '../../Components/PureComponents/H3'
 import Input from '../../Components/PureComponents/Input'
@@ -24,6 +24,10 @@ const Login = () => {
     const handleLogin = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, login_url, setIsDisabled)
 
 
+    useEffect(() => {
+        document.title = 'Login'
+        return () => {document.title = 'Simple Note App'}
+    }, [])
 
     return(
             <Form mode='login' styles={form_styles} onSubmit={handleLogin}>

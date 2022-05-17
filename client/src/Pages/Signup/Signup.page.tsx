@@ -87,6 +87,11 @@ const Signup = () => {
     const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, signup_url, setIsDisabled)
 
 
+    useEffect(() => {
+        document.title = 'Sign Up'
+        return () => {document.title = 'Simple Note App'}
+    }, [])
+
 
     return(
         <Wrapper mode='sign_form_container'>
