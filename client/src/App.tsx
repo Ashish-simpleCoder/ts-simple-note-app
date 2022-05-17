@@ -6,7 +6,6 @@ import withStore from "./Utility/Utility Components/withStore"
 import useTheme from "./Redux/hooks/useTheme"
 
 const App = ({children}: {children?: JSX.Element | JSX.Element[]}) => {
-    console.log(process.env.REACT_APP_PROD_LOGIN)
 
     const {theme} = useTheme()
     useEffect(() => {

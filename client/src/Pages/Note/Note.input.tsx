@@ -26,7 +26,8 @@ const NoteInput = () => {
 
     const handleCreateNote = useCallback(async(states: Record<any, any>) => {
         try{
-            const res = await fetch('http://localhost:5000/api/user/note', {method:'post', credentials: 'include',body: JSON.stringify(states),headers:{
+            const note_create_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_NOTE_CREATE! : process.env.REACT_APP_PROD_NOTE_CREATE! )
+            const res = await fetch(note_create_url, {method:'post', credentials: 'include',body: JSON.stringify(states),headers:{
                 'Content-Type': 'application/json'
             }})
             const data = await res.json()

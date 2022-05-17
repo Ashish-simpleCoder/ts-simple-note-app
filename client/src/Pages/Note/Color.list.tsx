@@ -19,7 +19,8 @@ const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
       if(!color_menu?.item) return         //if note edit mode enabled then return
       if(color_menu.item.bg.includes(color)) return      //if user sets the color which is already setted then return
 
-      const res = await fetch(`http://localhost:5000/api/user/note/color/${color_menu.item._id}`, {
+      const change_clr_url = new Request(process.env.NODE_ENV == 'development' ? `${process.env.REACT_APP_DEV_NOTE_CHANGE_CLR!}${color_menu.item._id}` : `${process.env.REACT_APP_PROD_NOTE_CHANGE_CLR!}${color_menu.item._id}` )
+      const res = await fetch(`${change_clr_url}`, {
          credentials: 'include',
          method: 'PATCH',
          body: JSON.stringify( { bg: clr[Object.keys(clr)[0]]} ),
