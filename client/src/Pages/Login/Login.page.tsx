@@ -20,7 +20,7 @@ const Login = () => {
     const form_styles = useMemo(() => ({boxShadow:'var(--form-shadow)',transform:'translateY(3rem)'}), [])
 
 
-    const login_url = new Request('http://localhost:5000/api/user/login')
+    const login_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_LOGIN! : process.env.REACT_APP_PROD_LOGIN!)
     const handleLogin = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, login_url, setIsDisabled)
 
 

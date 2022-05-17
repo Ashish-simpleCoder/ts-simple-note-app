@@ -6,7 +6,8 @@ const useNoteFetch = () => {
     const {dispatch} = useUser()
 
     const handleFetchNotes = useCallback(async() => {
-        const res = await fetch('http://localhost:5000/api/user/notes', {method:'get', credentials: 'include', headers:{
+        const note_fetch_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_NOTE_FETCH! : process.env.REACT_APP_PROD_NOTE_FETCH! )
+        const res = await fetch(note_fetch_url, {method:'get', credentials: 'include', headers:{
             'Content-Type': 'application/json'
         }})
         const data = await res.json()

@@ -8,7 +8,8 @@ const useFetchUser = ({shouldCheckIfUserLogged = true}: {shouldCheckIfUserLogged
 
 
     const controller = new AbortController()
-    const url = useMemo(() => new Request('http://localhost:5000/api/user', {
+    const user_fetch_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_USER_FETCH! : process.env.REACT_APP_PROD_USER_FETCH! )
+    const url = useMemo(() => new Request(user_fetch_url, {
         method:'GET',
         headers:{'Content-Type':'application/json'},
         credentials: 'include',

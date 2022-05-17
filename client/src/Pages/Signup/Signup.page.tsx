@@ -83,8 +83,8 @@ const Signup = () => {
         }else setIsDisabled(true)
     },[states['email']])
 
-    const login_url = new Request('http://localhost:5000/api/user')
-    const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, login_url, setIsDisabled)
+    const signup_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_SIGNUP! : process.env.REACT_APP_PROD_SIGNUP! )
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, signup_url, setIsDisabled)
 
 
 

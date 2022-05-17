@@ -4,7 +4,9 @@ const useNoteOperations = () => {
 
     const handleDeleteNote = useCallback(async(id: string) => {
         try{
-            const res = await fetch(`http://localhost:5000/api/user/notes/${id}`, {
+            const delete_note_url = new Request(process.env.NODE_ENV == 'development' ? `${process.env.REACT_APP_DEV_NOTE_DELETE!}${id}` :`${process.env.REACT_APP_PROD_NOTE_DELETE!}${id}` )
+
+            const res = await fetch( delete_note_url, {
                 credentials: 'include', body: JSON.stringify({BIN: true}),
                 method:'delete',
                 headers: {'content-type': 'application/json'}
@@ -18,7 +20,9 @@ const useNoteOperations = () => {
 
     const handleUpdateNote = useCallback( async(update_note: Record<any, any>) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/user/notes/${update_note._id}`, {
+            const update_note_url = new Request(process.env.NODE_ENV == 'development' ? `${process.env.REACT_APP_DEV_NOTE_UPDATE!}${update_note._id}` :`${process.env.REACT_APP_PROD_NOTE_UPDATE!}${update_note._id}` )
+
+            const res = await fetch(update_note_url, {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(update_note),
                 credentials: 'include',

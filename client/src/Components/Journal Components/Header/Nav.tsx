@@ -20,7 +20,8 @@ const Nav = () => {
 
 
     const handleLogout = useCallback(async() => {
-        const url = new Request('http://localhost:5000/api/user/logout', { credentials: 'include' })
+        const signup_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_LOGOUT! : process.env.REACT_APP_PROD_LOGOUT! )
+        const url = new Request(signup_url, { credentials: 'include' })
         const res = await fetch(url)
         const data = await res.json()
 
