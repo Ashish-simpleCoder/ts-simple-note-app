@@ -18,6 +18,7 @@ const useForm = () =>{
 
 
     const handleSubmit = useCallback( async(e: FormEvent<HTMLFormElement>, url: RequestInfo, setIsDisabled: Dispatch<SetStateAction<boolean>>) => {
+        console.log(url)
         e.preventDefault()
         try{
             setIsDisabled(true)
