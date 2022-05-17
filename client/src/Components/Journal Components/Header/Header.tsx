@@ -14,15 +14,17 @@ import MiniNav from "./MiniNav"
 
 const Nav = lazy(() => import('./Nav' /* webpackChunkName: 'Nav' */))
 const SearchBar = lazy(() => import('../SearchBar' /* webpackChunkName: 'SearchBar' */))
+const MiniSearchBar = lazy(() => import( "../Mini.SearchBar" /* webpackChunkName: 'MiniSearchBar' */))
 // const MiniNav = lazy(() => import('./MiniNav' /* webpackChunkName: 'mini nav' */))
 
 
 
 const Header = () => {
     const [showNav, setShowNav] = useState(false)
+    const [shouldDisplaySearchBar, setShouldDisplaySearchBar] = useState(false)
+
     const toggleNav = useCallback(() => setShowNav(v => !v), [])
     const location = useLocation()
-    const [shouldDisplaySearchBar, setShouldDisplaySearchBar] = useState(false)
 
     const [isLargerThan800] = useMediaQuery({width: 800})
     const {user} = useUser()
@@ -42,8 +44,11 @@ const Header = () => {
     return(
         <StyledHeader className="px">
             <HeaderLogo/>
-            <If condition={shouldDisplaySearchBar && user.notes?.length != 0}>
+            <If condition={shouldDisplaySearchBar && user.notes?.length != 0 && isLargerThan800}>
                 <WithSuspense Comp={() => <SearchBar />}></WithSuspense>
+            </If>
+            <If condition={shouldDisplaySearchBar && user.notes?.length != 0 && !isLargerThan800}>
+                <WithSuspense Comp={() => <MiniSearchBar />}></WithSuspense>
             </If>
             <If condition={isLargerThan800}>
                 <WithSuspense Comp={Nav} />

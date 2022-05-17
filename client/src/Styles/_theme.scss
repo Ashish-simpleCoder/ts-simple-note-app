@@ -51,7 +51,7 @@
 
 
     //var
-    --header-height: 6rem;
+    --header-height: clamp(6rem, 7rem, 7vw);
 }
 
 .dark{

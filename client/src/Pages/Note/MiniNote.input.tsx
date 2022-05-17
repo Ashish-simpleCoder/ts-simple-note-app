@@ -1,3 +1,4 @@
+import HTMLReactParser from "html-react-parser"
 import { lazy, useCallback, useEffect, useState } from "react"
 import styled, { css } from "styled-components"
 import Button from "../../Components/PureComponents/Button"
@@ -8,22 +9,28 @@ const NoteInput = lazy(() => import('./Note.input' /* webpackChunkName: 'NoteInp
 
 
 const MiniNoteInput = () => {
-    const [openMiniInput, setOpenMiniInput] = useState(false)
+    const [shouldOpenMiniNoteInput, setOpenMiniInput] = useState(false)
 
     const handleOpenMiniInput = useCallback(() => setOpenMiniInput(v => !v), [])
 
 
     useEffect(() => {
-        document.documentElement.classList.toggle('hide-overflow', openMiniInput)
-    }, [openMiniInput])
+        document.documentElement.classList.toggle('hide-overflow', shouldOpenMiniNoteInput)
+    }, [shouldOpenMiniNoteInput])
 
 
     return(
-        <StyledMiniNote expand={openMiniInput}>
-            <If condition={openMiniInput}>
+        <StyledMiniNote expand={shouldOpenMiniNoteInput}>
+            <If condition={shouldOpenMiniNoteInput}>
                 <WithSuspense Comp={() => <NoteInput />}/>
             </If>
-            <Button  cn='open' onClick={handleOpenMiniInput}>&#43;</Button>
+            <Button
+                cn='open'
+                onClick={handleOpenMiniInput}
+                style={{backgroundColor: 'green', borderRadius: '0.5rem',transform: 'scale(1.5)', color: 'white'}}
+            >
+                { shouldOpenMiniNoteInput ? HTMLReactParser("&#10005;") : HTMLReactParser("&#43;") }
+            </Button>
         </StyledMiniNote>
     )
 }

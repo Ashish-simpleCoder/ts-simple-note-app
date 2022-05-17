@@ -1,11 +1,11 @@
 import { CSSProperties } from "react"
 import styled from "styled-components"
 
-const WithModalWrapper = ({children }:
+const WithModalWrapper = ({children, style }:
     {children: JSX.Element,  style?: CSSProperties }
 ) => {
     return(
-        <StyledwithModalWrapper role='wrapper' id='wrapper'>
+        <StyledwithModalWrapper role='wrapper' id='wrapper' style={style}>
             {children}
         </StyledwithModalWrapper>
     )

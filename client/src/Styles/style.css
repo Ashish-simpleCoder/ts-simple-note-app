@@ -30,7 +30,7 @@
   --brand-border-300: hsl(259, 86%, 70%);
   --brand-border-400: hsl(259, 86%, 60%);
   --border: hsl(0, 0%, 82%);
-  --header-height: 6rem;
+  --header-height: clamp(6rem, 7rem, 7vw);
 }
 
 .dark {
