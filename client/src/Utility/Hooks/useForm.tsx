@@ -89,6 +89,6 @@ const useForm = () =>{
     }, [states])
 
 
-    return { addNewState, setStates, states, Form, FormGroup, FormLabel, errors, loading, handleSubmit, disabled, setDisabled, error  }
+    return { addNewState, setStates, states, Form, FormGroup, FormLabel, errors, loading, handleSubmit, disabled, setDisabled, error, setLoading  }
 }
 export default useForm

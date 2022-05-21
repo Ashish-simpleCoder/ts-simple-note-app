@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react"
+import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
 import Button from "../../Components/PureComponents/Button"
 import Input from "../../Components/PureComponents/Input"
@@ -9,13 +9,14 @@ import useForm from "../../Utility/Hooks/useForm"
 
 
 const NoteInput = () => {
-    const {addNewState, disabled, setDisabled, states, loading, setStates} = useForm()
+    const {addNewState, disabled, setDisabled, states, loading, setStates, setLoading} = useForm()
     const dispatch = useDispatch()
     const [shouldAddNewNote, setShouldAddNewNote] = useState(false)
     const [newNoteToBeAdded, setNewNoteToBeAdded] = useState({_id:'',bg: [''], title: '', body: '',delete: false})
 
-    const TitleField = 'title'
-    const BodyField = 'body'
+    const TitleField = useMemo(() => 'title', [])
+    const BodyField = useMemo(() => 'body', [])
+    // const BodyField = 'body'
 
 
     useEffect(() => {
@@ -26,6 +27,7 @@ const NoteInput = () => {
 
     const handleCreateNote = useCallback(async(states: Record<any, any>) => {
         try{
+            setLoading(true)
             const note_create_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_NOTE_CREATE! : process.env.REACT_APP_PROD_NOTE_CREATE! )
             const res = await fetch(note_create_url, {method:'post', credentials: 'include',body: JSON.stringify(states),headers:{
                 'Content-Type': 'application/json'
@@ -37,6 +39,8 @@ const NoteInput = () => {
             }
         }catch(err){
             console.log('err' + err)
+        }finally{
+            setLoading(false)
         }
     }, [])
 
@@ -47,6 +51,10 @@ const NoteInput = () => {
             setShouldAddNewNote(false)
         }
     }, [ newNoteToBeAdded, shouldAddNewNote])
+
+    useEffect(() => {
+        console.log('input')
+    }, [])
 
 
     return(

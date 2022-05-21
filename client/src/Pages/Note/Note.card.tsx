@@ -13,7 +13,6 @@ import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import useMediaQuery from "../../Utility/Hooks/useMediaQuery";
 import If from "../../Utility/Utility Components/If";
 import WithSuspense from "../../Utility/Utility Components/WithSuspense";
-import removeWhiteSpaces from "../../Utility/Utility Functions/removeWhiteSpaces";
 import Clr from "./Clr.icon";
 const OverlayMenu = lazy(() => import('./Overlay.menu' /* webpackChunkName: 'Overlay menu' */))
 
@@ -25,7 +24,7 @@ export interface INoteCard {
     isVisible?: boolean
 }
 
-const NoteCard = memo((props: INoteCard)=>{
+const NoteCard = (props: INoteCard)=>{
     const {note, styles, mode = 'note-page'} = props
 
     const {color_menu, dispatch} = useColorMenu()
@@ -36,7 +35,7 @@ const NoteCard = memo((props: INoteCard)=>{
     const setOverlayMenuTrue = useCallback(() => isLargerThan750 && setIsOverlayMenuVisibile(true), [isLargerThan750])
     const setOverlayMenuFalse = useCallback(() => isLargerThan750 && setIsOverlayMenuVisibile(false), [isLargerThan750])
 
-
+    // const toggleColorMenu = () => console.log('toggle')
     const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const {top, left} = e.currentTarget.getBoundingClientRect()
         dispatch(setColorMenu({
@@ -105,8 +104,8 @@ const NoteCard = memo((props: INoteCard)=>{
             </If>
         </StyledNote>
     )
-})
-export default NoteCard
+}
+export default memo(NoteCard)
 
 
 

@@ -14,7 +14,7 @@ type WrapperProps = {
 }
 
 
-const Wrapper = memo((props : WrapperProps)=>{
+const Wrapper = (props : WrapperProps)=>{
     const {children, styles, mode, cn} = props
 
     return (
@@ -22,7 +22,7 @@ const Wrapper = memo((props : WrapperProps)=>{
             {children}
         </StyledWrapper>
     )
-})
+}
 export default memo(Wrapper)
 
 
