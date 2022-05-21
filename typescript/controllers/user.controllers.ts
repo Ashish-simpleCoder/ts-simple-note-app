@@ -11,42 +11,34 @@ import {ILoginRes} from '../../type'
 export const handleRegister = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
     await USER_MODEL.create(req.body,(err:Error, user:UserType)=>{
         if(err) return next(err)
-        else return res.status(201).send({_id:user._id})
+        return res.status(201).send({_id:user._id})
     })
 })
 
 
 export const handleLogin = asyncWrapper(async(req:Request, res:Response, next:NextFunction)=>{
-    const {email, password} = req.body
+    const {email, password} = req.body;
 
-
-    if(!email || !password){
-        throwRequiredFieldErr(email, password, next)
-    }
-
-
+    (!email || !password) && throwRequiredFieldErr(email, password, next);
 
     USER_MODEL.findOne({email}, async(err:Error, user:UserType)=>{
-        console.log(user)
         if(!user) return next(genLoginError('email'))
-        else{
-            const isTruePass = await compare(password, user.password)
-            if(!isTruePass) return next(genLoginError('password'))
-            else{
-                const cookie_name = process.env.COOKIE_NAME || 'cookie_name'
-                const cookie = generateLoginToken(user)
-                // if(req.headers.origin?.includes('localhost')){
-                //     res.cookie(cookie_name,cookie,{maxAge:200000000,sameSite: 'none', secure: true, path: '/', httpOnly:true,domain: 'localhost'
-                //     })
-                //     const response: ILoginRes = {_id:user._id, email:user.email}
-                //     return res.send(response)
-                // }
-                res.cookie(cookie_name,cookie,{maxAge:200000000, sameSite:'none', secure: true, path: '/', httpOnly:true,
-                })
-                const response: ILoginRes= {_id:user._id, email:user.email}
-                return res.send(response)
-            }
-        }
+
+        const isTruePass = await compare(password, user.password)
+        if(!isTruePass) return next(genLoginError('password'))
+
+        const COOKIE_NAME = process.env.COOKIE_NAME || 'cookie_name'
+        const encoded_jwt_cookie = generateLoginToken(user)
+
+        res.cookie(COOKIE_NAME, encoded_jwt_cookie, {
+            maxAge: 200000000,
+            sameSite: 'none',
+            secure: true,
+            path: '/',
+            httpOnly: true,
+        })
+        const response: ILoginRes= {_id:user._id, email:user.email}
+        return res.send(response)
     })
 })
 

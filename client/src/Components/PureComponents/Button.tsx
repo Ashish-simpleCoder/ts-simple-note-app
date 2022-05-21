@@ -18,7 +18,8 @@ interface PropType {
     mode?: BtnMode,
     isDisabled?: boolean,
     loader?: boolean,
-    style?: CSSProperties
+    style?: CSSProperties,
+    redirect_text?: string
 }
 
 const Button = (props: PropType) => {
@@ -28,6 +29,7 @@ const Button = (props: PropType) => {
     return(
         <StyledButton className={cn} onClick={onClick} mode={mode} disabled={isDisabled} style={style}>
             <If condition={loader}> <Loader /> </If>
+            <If condition={!loader && props.redirect_text}> {props.redirect_text} </If>
             <If condition={!loader}> {children} </If>
         </StyledButton>
     )

@@ -3,15 +3,13 @@ import styled from "styled-components"
 import ColorsArr from "../../Utility/Utility Functions/ColorArr"
 import ColorBox from "./Color.box"
 import useColorMenu from "../../Redux/hooks/useColorMenu"
-import useUser from "../../Redux/hooks/useUser"
 import WithModalWrapper from "../../Utility/Utility Components/withModalWrapper"
 import { setOnlyBg } from "../../Redux/slices/color.menu.slice"
-import { changeNoteColor, updateNote } from "../../Redux/slices/user.slice"
+import { changeNoteColor } from "../../Redux/slices/user.slice"
 
 
 
 const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
-   const {user} = useUser()
    const {color_menu, dispatch} = useColorMenu()
 
    const handleClick = useCallback(async(e, color:string, clr) =>{
@@ -19,7 +17,11 @@ const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
       if(!color_menu?.item) return         //if note edit mode enabled then return
       if(color_menu.item.bg.includes(color)) return      //if user sets the color which is already setted then return
 
-      const change_clr_url = new Request(process.env.NODE_ENV == 'development' ? `${process.env.REACT_APP_DEV_NOTE_CHANGE_CLR!}${color_menu.item._id}` : `${process.env.REACT_APP_PROD_NOTE_CHANGE_CLR!}${color_menu.item._id}` )
+      const change_clr_url = new Request(
+         process.env.NODE_ENV == 'development'
+            ? `${process.env.REACT_APP_DEV_NOTE_CHANGE_CLR!}${color_menu.item._id}`
+            :  `${process.env.REACT_APP_PROD_NOTE_CHANGE_CLR!}${color_menu.item._id}`
+      )
       const res = await fetch(change_clr_url, {
          credentials: 'include',
          method: 'PATCH',
@@ -37,7 +39,7 @@ const ColorList = ({ styles }:{ styles?:CSSProperties})=>{
    return(
        <WithModalWrapper>
         <StyledColorList className="clr-list" style={styles}>
-            { ColorsArr.map((clr:any, i:number)=><ColorBox key={i}  clr={clr} handleClick={handleClick}/>) }
+            { ColorsArr.map((clr:any, i:number) => <ColorBox key={i}  clr={clr} handleClick={handleClick} /> )}
         </StyledColorList>
        </WithModalWrapper>
    )

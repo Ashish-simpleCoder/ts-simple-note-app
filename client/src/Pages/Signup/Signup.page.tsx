@@ -83,8 +83,9 @@ const Signup = () => {
         }else setIsDisabled(true)
     },[states['email']])
 
-    const signup_url = new Request(process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_SIGNUP! : process.env.REACT_APP_PROD_SIGNUP! )
-    const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit(e, signup_url, setIsDisabled)
+
+    const signup_url = process.env.NODE_ENV == 'development' ? process.env.REACT_APP_DEV_SIGNUP! : process.env.REACT_APP_PROD_SIGNUP!
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => handleSubmit({e, url: signup_url, setIsDisabled })
 
 
     useEffect(() => {

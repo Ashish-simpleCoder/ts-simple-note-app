@@ -6,7 +6,6 @@ import { TOGGLE_THEME } from "../../../Redux/slices/theme.slice"
 import { setLogout } from "../../../Redux/slices/user.slice"
 import ToggleThemeIcon from "../../../Svg/ToggleThemeIcon"
 import If from "../../../Utility/Utility Components/If"
-import asyncWrapper from "../../../Utility/Utility Functions/asyncWrapper"
 import AnchorLink from "../../PureComponents/AnchorLink"
 import Button from "../../PureComponents/Button"
 

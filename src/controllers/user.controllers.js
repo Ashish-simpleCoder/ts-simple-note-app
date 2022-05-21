@@ -23,32 +23,29 @@ exports.handleRegister = (0, asyncWrapper_1.default)((req, res, next) => __await
     yield user_schema_1.default.create(req.body, (err, user) => {
         if (err)
             return next(err);
-        else
-            return res.status(201).send({ _id: user._id });
+        return res.status(201).send({ _id: user._id });
     });
 }));
 exports.handleLogin = (0, asyncWrapper_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    if (!email || !password) {
-        (0, throwRequiredFieldErr_1.default)(email, password, next);
-    }
+    (!email || !password) && (0, throwRequiredFieldErr_1.default)(email, password, next);
     user_schema_1.default.findOne({ email }, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(user);
         if (!user)
             return next((0, loginError_1.default)('email'));
-        else {
-            const isTruePass = yield (0, bcrypt_1.compare)(password, user.password);
-            if (!isTruePass)
-                return next((0, loginError_1.default)('password'));
-            else {
-                const cookie_name = process.env.COOKIE_NAME || 'cookie_name';
-                const cookie = (0, genLoginToken_1.default)(user);
-                res.cookie(cookie_name, cookie, { maxAge: 200000000, sameSite: 'none', secure: true, path: '/', httpOnly: true,
-                });
-                const response = { _id: user._id, email: user.email };
-                return res.send(response);
-            }
-        }
+        const isTruePass = yield (0, bcrypt_1.compare)(password, user.password);
+        if (!isTruePass)
+            return next((0, loginError_1.default)('password'));
+        const COOKIE_NAME = process.env.COOKIE_NAME || 'cookie_name';
+        const encoded_jwt_cookie = (0, genLoginToken_1.default)(user);
+        res.cookie(COOKIE_NAME, encoded_jwt_cookie, {
+            maxAge: 200000000,
+            sameSite: 'none',
+            secure: true,
+            path: '/',
+            httpOnly: true,
+        });
+        const response = { _id: user._id, email: user.email };
+        return res.send(response);
     }));
 }));
 exports.handleLogout = (0, asyncWrapper_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
