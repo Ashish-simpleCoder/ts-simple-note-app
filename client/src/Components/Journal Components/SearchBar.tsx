@@ -6,11 +6,11 @@ import useForm from "../../Utility/Hooks/useForm"
 import Input from "../PureComponents/Input"
 import FormGroup from "./FormGroup/Form.group"
 
-
 const SearchBar = (props: {style?: CSSProperties}) => {
     const search = useMemo(() => 'search', [])
     const {addNewState, states} = useForm()
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         dispatch(setSearch(states[search]))
