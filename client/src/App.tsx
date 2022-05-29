@@ -1,13 +1,14 @@
+import { lazy, Suspense } from "react"
 import "./Styles/style.css"
-import Header from "./Components/Journal Components/Header/Header"
 import withRouter from "./Utility/Utility Components/withRouter"
 import withStore from "./Utility/Utility Components/withStore"
 
-const App = ({children}: {children?: JSX.Element | JSX.Element[]}) => {
+const Header =  lazy(() => import("./Components/Journal Components/Header/Header" /* webpackChunkName: 'header'*/))
 
+const App = ({children}: {children?: JSX.Element | JSX.Element[]}) => {
     return(
         <>
-            <Header />
+            <Suspense fallback={<></>}><Header /></Suspense>
             {children}
         </>
     )

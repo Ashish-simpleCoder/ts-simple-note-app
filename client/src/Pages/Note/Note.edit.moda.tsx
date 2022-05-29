@@ -1,13 +1,13 @@
-import { memo, MouseEvent, ReactNode, useCallback } from "react";
+import { memo, ReactNode } from "react";
 import styled, { css } from "styled-components";
-import Button from "../../Components/PureComponents/Button";
+// import Button from "../../Components/PureComponents/Button";
 import { INote } from "../../Inote";
-import useColorMenu from "../../Redux/hooks/useColorMenu";
+// import useColorMenu from "../../Redux/hooks/useColorMenu";
 import useTheme from "../../Redux/hooks/useTheme";
-import { setColorMenu } from "../../Redux/slices/color.menu.slice";
+// import { setColorMenu } from "../../Redux/slices/color.menu.slice";
 import WithModalWrapper from "../../Utility/Utility Components/withModalWrapper";
-import Clr from "./Clr.icon";
-import OverlayMenu from "./Overlay.menu";
+// import Clr from "./Clr.icon";
+// import OverlayMenu from "./Overlay.menu";
 
 
 const EditModal = memo(({children, mode, bg, noteToBeEdited}:{
@@ -17,7 +17,7 @@ const EditModal = memo(({children, mode, bg, noteToBeEdited}:{
     noteToBeEdited: INote
 })=>{
     const {theme, dispatch} = useTheme()
-    const {color_menu} = useColorMenu()
+    // const {color_menu} = useColorMenu()
 
     // const toggleColorMenu = useCallback((e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     //     const {top, left} = e.currentTarget.getBoundingClientRect()

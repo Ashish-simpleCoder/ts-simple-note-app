@@ -3,12 +3,18 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Button from "../../Components/PureComponents/Button"
 import H2 from "../../Components/PureComponents/Heading/H2"
+import useUser from "../../Redux/hooks/useUser"
 import HeroSvg from "../../Svg/Hero_Svg"
+import useFetchUser from "../../Utility/Hooks/useFetchUser"
 import HeroLeft from "./Hero.left"
 
 const Hero = () => {
+    const {user} = useUser()
+    useFetchUser({shouldCheckIfUserLogged: !user.email})
+
     const navigate = useNavigate()
-    const handleClick = useCallback(() => navigate('/note'), [])
+    const navigateToNotePage = useCallback(() => navigate('/note'), [])
+
 
     return(
         <StyledHero >
@@ -17,7 +23,7 @@ const Hero = () => {
                     <span>Save your notes </span>
                     <span className="brand u">easily.</span>
                 </H2>
-                <Button mode='hero_btn' onClick={handleClick}>Get Started</Button>
+                <Button mode='hero_btn' onClick={navigateToNotePage}>Get Started</Button>
             </HeroLeft>
             <HeroLeft>
                 <HeroSvg />

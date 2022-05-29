@@ -16,7 +16,6 @@ const NoteInput = () => {
 
     const TitleField = useMemo(() => 'title', [])
     const BodyField = useMemo(() => 'body', [])
-    // const BodyField = 'body'
 
 
     useEffect(() => {
@@ -52,16 +51,19 @@ const NoteInput = () => {
         }
     }, [ newNoteToBeAdded, shouldAddNewNote])
 
-    useEffect(() => {
-        console.log('input')
-    }, [])
-
 
     return(
         <Wrapper mode='create_note_container'>
             <Input {...addNewState({state:TitleField, name:'title', placeholder: 'title...' })} />
             <Textarea {...addNewState({state: BodyField, name:'body', placeholder: 'your notes...' })} />
-            <Button isDisabled={disabled} loader={loading} onClick={() => handleCreateNote(states)} mode='create_note_btn'>Create new note.</Button>
+            <Button
+                isDisabled={disabled}
+                loader={loading}
+                onClick={() => handleCreateNote(states)}
+                mode='create_note_btn'
+            >
+                Create new note.
+            </Button>
         </Wrapper>
     )
 }

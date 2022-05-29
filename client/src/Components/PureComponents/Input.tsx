@@ -15,14 +15,8 @@ const Input = ( props: {
     mode?: Mode
 }) => {
 
-    const handleFocus = useCallback(()=>{
-        props.setFocus && props.setFocus(true)
-    } , [props.setFocus])
-
-    const handleBlur = useCallback((e)=>{
-        props.setFocus && props.setFocus(e.target.value.length>0 )
-    } , [props.setFocus])
-
+    const handleFocus = useCallback(()=> props.setFocus?.(true) , [props.setFocus])
+    const handleBlur = useCallback((e)=> props.setFocus?.(e.target.value.length > 0 ) , [props.setFocus])
 
     return(
         <StyledInput {...props} onFocus={handleFocus} onBlur={handleBlur}/>
