@@ -17,10 +17,9 @@ import checkCapital from '../../Utility/Utility Functions/checkCapital'
 import checkCharLength from '../../Utility/Utility Functions/checkCharLength'
 import checkNumber from '../../Utility/Utility Functions/checkNumber'
 import checkSmall from '../../Utility/Utility Functions/checkSmall'
-// import ValidationBox from './ValidationBox'
+
+
 const ValidationBox = lazy(() => import("./ValidationBox" /* webpackChunkName: 'ValidationBox' */))
-
-
 const MiniValidationBox = lazy(() => import('./MiniValidationBox' /* webpackChunkName: 'MiniValidationBox' */))
 const ErrorBox = lazy(() => import('../../Components/Journal Components/ErrorBox' /* webpackChunkName: 'ErrorBox' */))
 

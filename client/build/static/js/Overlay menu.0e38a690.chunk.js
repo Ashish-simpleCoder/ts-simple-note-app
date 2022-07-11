@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksimple_note=self.webpackChunksimple_note||[]).push([[537],{518:function(n,e,i){i.r(e);var s,t=i(168),c=i(5751),r=i(184);e.default=function(n){var e=n.children,i=n.cn;return(0,r.jsx)(a,{className:i,children:e})};var a=c.ZP.div(s||(s=(0,t.Z)(["\n    display:flex;\n    align-items:center;\n    justify-content:space-around;\n    flex-direction:row;\n"])))}}]);
-//# sourceMappingURL=Overlay menu.0e38a690.chunk.js.map

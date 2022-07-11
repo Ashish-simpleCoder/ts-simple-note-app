@@ -31,9 +31,11 @@ const Header = () => {
 
     const hasTransitionedIn = useMountTransition({isMounted: showNav, unmountDelay: 500})
 
-    useClickListener({element: document, handler: () => {
-        setShowNav(false)
-    }, eventName: 'click', run: showNav} )
+    useClickListener({
+        element: document,
+        handler: () => setShowNav(false),
+        eventName: 'click', run: showNav
+    })
 
 
     useEffect(() => {
